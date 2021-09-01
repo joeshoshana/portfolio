@@ -1,0 +1,13 @@
+﻿<Application x:Class="Basalt_v2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <DropShadowEffect x:Key="shadow"  BlurRadius="15" Direction="360" RenderingBias="Performance" ShadowDepth="3"/>
+        <DropShadowEffect x:Key="blueGlow" ShadowDepth="1" Color="LightBlue" Opacity="1" BlurRadius="10"/>
+        <Style x:Key="FontAwesome">
+            <Setter Property="TextElement.FontFamily" 
+            Value="/Basalt_v2;Component/Fonts/#Analog" />
+        </Style>
+    </Application.Resources>
+</Application>

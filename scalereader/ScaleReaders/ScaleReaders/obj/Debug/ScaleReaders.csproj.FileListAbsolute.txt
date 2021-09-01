@@ -1,0 +1,7 @@
+D:\data\scalereader\ScaleReaders\ScaleReaders\bin\Debug\Shkila.ScaleReaders.dll
+D:\data\scalereader\ScaleReaders\ScaleReaders\bin\Debug\Shkila.ScaleReaders.pdb
+D:\data\scalereader\ScaleReaders\ScaleReaders\bin\Debug\SuperSocket.ClientEngine.dll
+D:\data\scalereader\ScaleReaders\ScaleReaders\bin\Debug\WebSocket4Net.dll
+D:\data\scalereader\ScaleReaders\ScaleReaders\obj\Debug\ScaleReaders.csprojResolveAssemblyReference.cache
+D:\data\scalereader\ScaleReaders\ScaleReaders\obj\Debug\Shkila.ScaleReaders.dll
+D:\data\scalereader\ScaleReaders\ScaleReaders\obj\Debug\Shkila.ScaleReaders.pdb

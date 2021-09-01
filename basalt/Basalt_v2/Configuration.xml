@@ -1,0 +1,23 @@
+﻿<Configuration>
+  <ComPort>COM3</ComPort>
+  <DataBits>8</DataBits>
+  <StopBits>One</StopBits>
+  <Parity>None</Parity>
+  <ConnectionType>Cloud</ConnectionType>
+  <ScaleHeader>J6478</ScaleHeader>
+  <Multiple>0.1</Multiple>
+  <BaudRate>9600</BaudRate>
+  <RTS>False</RTS>
+  <Port>0</Port>
+  <IP>
+  </IP>
+  <DTR>True</DTR>
+  <MainColor>#FF800080</MainColor>
+  <ActivationKey>F6</ActivationKey>
+  <FinishChar>Enter</FinishChar>
+  <Username>ganigar</Username>
+  <Company></Company>
+  <AutoStart>False</AutoStart>
+  <AutoComCheck>True</AutoComCheck>
+  <LogFilePath>True</LogFilePath>
+</Configuration>

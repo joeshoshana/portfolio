@@ -1,0 +1,364 @@
+﻿<Window x:Class="Basalt_v2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:converters="clr-namespace:Basalt_v2.Converters"
+        xmlns:TextOnAPath="clr-namespace:TextOnAPath;assembly=TextOnAPath"
+        Title="MainWindow" Height="550" Width="1000" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" Icon="Images/ShkilaT.ico" Closing="Window_Closing" MouseMove="Window_MouseMove">
+    <Window.Resources>
+        <converters:RevereseVisibilityToBool x:Key="RevereseVisibilityToBool"/>
+        <converters:VisibilityToBool x:Key="VisibilityToBool"/>
+        <converters:TypeToVisibilty x:Key="TypeToVisibilty"/>
+        <FontFamily x:Key="Analog">/Fonts/#Ticking Timebomb BB</FontFamily>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{Binding MainColor,FallbackValue=Red}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" Effect="{StaticResource shadow}">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="White" />
+                                <Setter Property="Foreground" Value="{Binding MainColor,FallbackValue=Red}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!--Margin="12,73,0,427.4"-->
+        <Border CornerRadius="500" Opacity="0" HorizontalAlignment="Left" Background="{Binding MainColor,FallbackValue=Red}" Width="50" Height="50" Margin="105,135,0,365" MouseLeftButtonDown="btnClose_Clicked">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUpButtonsAnim}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)"  To="12,73,0,427.4" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)" To="105, 135, 0, 365" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="0" Duration="0:0:0.2" BeginTime="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <TextBlock Text="X" TextAlignment="Center" FontSize="25" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <!--Margin="70,73,0,427.4"-->
+        <Border Name="minimizeBtn" CornerRadius="500" Opacity="0" HorizontalAlignment="Left" Background="{Binding MainColor,FallbackValue=Red}" Width="50" Height="50" Margin="105,135,0,365" MouseLeftButtonDown="btnMinimize_Clicked">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUpButtonsAnim}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)"  To="70, 73, 0, 427.4" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)" To="105, 135, 0, 365" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="0" Duration="0:0:0.2" BeginTime="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                
+            </Border.Style>
+            <TextBlock Text="_" TextAlignment="Center" FontSize="25" FontWeight="ExtraBlack" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="500" Opacity="0" HorizontalAlignment="Left" Background="{Binding MainColor,FallbackValue=Red}" Width="50" Height="50" Margin="105, 135, 0, 365" MouseLeftButtonDown="imgLink_Clicked">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUpButtonsAnim}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)"  To="12,135,0,365.4" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)" To="105, 135, 0, 365" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="0" Duration="0:0:0.2" BeginTime="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Image Source="./Images/ShkilaT.ico" HorizontalAlignment="Center" Width="25" Height="25" VerticalAlignment="Center"/>
+        </Border>
+        <Border CornerRadius="500" Opacity="0" HorizontalAlignment="Left" Background="{Binding MainColor,FallbackValue=Red}" Width="50" Height="50" Margin="96,346,0,154">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsDownButtonsAnim}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)"  To="12,410,0,89" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)" To="96,346,0,154" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="0" Duration="0:0:0.2" BeginTime="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <tk:ColorPicker Width="20" Height="20" SelectedColorChanged="cpMainColor_Changed"/>
+        </Border>
+        <Border CornerRadius="500" Opacity="0" HorizontalAlignment="Left" Background="{Binding MainColor,FallbackValue=Red}" Width="50" Height="50" Margin="96,346,0,154" MouseLeftButtonDown="keyDisplayClicked_Clicked">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsDownButtonsAnim}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)"  To="70,410,0,90" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="(Border.Margin)" To="96,346,0,154" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Opacity)" To="0" Duration="0:0:0.2" BeginTime="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Image Source="./Images/Key.png" HorizontalAlignment="Center" Width="40" Height="40" VerticalAlignment="Center"/>
+        </Border>
+        <Grid Width="350" Height="350" HorizontalAlignment="Left" Margin="40,0,0,0">
+            <Border CornerRadius="500" BorderBrush="{Binding MainColor,FallbackValue=Red}" BorderThickness="20" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect  BlurRadius="15" Direction="260" RenderingBias="Performance" ShadowDepth="3"/>
+                </Border.Effect>
+                <Border CornerRadius="500" BorderBrush="{Binding MainColor,FallbackValue=Red}" BorderThickness="20">
+                    <Border.Effect>
+                        <DropShadowEffect  BlurRadius="15" Direction="260" RenderingBias="Performance" ShadowDepth="3"/>
+                    </Border.Effect>
+                </Border>
+            </Border>
+
+
+        </Grid>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,152,0,0">
+            <Label.LayoutTransform>
+                <RotateTransform Angle="305"/>
+            </Label.LayoutTransform>
+            <Label.Content>Basalt 2.0</Label.Content>
+        </Label>
+        <Grid HorizontalAlignment="Left" Height="350" MinWidth="350" Width="800" MaxWidth="800" Focusable="True" Margin="40,0,0,0">
+            <Border CornerRadius="180" Margin="7" Background="{Binding MainColor,FallbackValue=Red}"  Opacity="0.45"></Border>
+            <ScrollViewer FlowDirection="RightToLeft" VerticalScrollBarVisibility="Auto" Margin="344,19,1,28">
+                <Grid Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" FlowDirection="LeftToRight" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Grid.RowSpan="3">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,100,0">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock  Text="{Binding Dictionary.ConnectionType, FallbackValue=ConnectionType}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding ConnectionType}" SelectedValue="{Binding ConnectionArgs.Type, Mode=TwoWay}" IsEditable="True" Width="100" Margin="5" SelectionChanged="cmbType_Changed"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.HeadScale, FallbackValue=HeadScale}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding ScaleHeaders}"  SelectedValue="{Binding ScaleHeader, Mode=TwoWay}"  IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Language, FallbackValue=Language}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding Languages}"  SelectedValue="{Binding Language, Mode=TwoWay}" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Multiple, FallbackValue=Multiple}" TextAlignment="Center" Foreground="White" Width="50" Margin="5"/>
+                                <TextBox Text="{Binding Multiple, Mode=TwoWay}" Width="50" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.ActivationKey, FallbackValue=Activation Key}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding Keys}"  SelectedValue="{Binding ActivationKey, Mode=TwoWay}" IsSynchronizedWithCurrentItem="False" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.FinishChar, FallbackValue=Finish Char}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding Keys}"  SelectedValue="{Binding FinishChar, Mode=TwoWay}"  IsSynchronizedWithCurrentItem="False" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,30,0">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.LogFilePath, FallbackValue=Log File Path}" TextAlignment="Left" Foreground="White" Width="150" Margin="5"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding LogFilePath, Mode=TwoWay}" Width="150" Margin="5"/>
+                                    <Button Content="{Binding Dictionary.Browse, FallbackValue=Browse}" Width="100" Click="btnBrowse_clicked" Margin="5"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Visibility="{Binding ConnectionArgs.Type, Converter={StaticResource TypeToVisibilty}, ConverterParameter=Serial}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.BaudRate, FallbackValue=BaudRate}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding BaudRates}"  SelectedValue="{Binding ConnectionArgs.BaudRate, Mode=TwoWay}" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Com, FallbackValue=Com}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding ComPorts}"  SelectedValue="{Binding ConnectionArgs.Com, Mode=TwoWay}" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Parity, FallbackValue=Parity}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding Parity}" SelectedValue="{Binding ConnectionArgs.Parity, Mode=TwoWay}" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Visibility="{Binding ConnectionArgs.Type, Converter={StaticResource TypeToVisibilty}, ConverterParameter=Serial}">
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.StopBits, FallbackValue=StopBits}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding StopBits}" SelectedValue="{Binding ConnectionArgs.StopBits, Mode=TwoWay}" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.DataBits, FallbackValue=DataBits}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <TextBox Text="{Binding ConnectionArgs.DataBits, Mode=TwoWay}" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.RTS, FallbackValue=RTS}" HorizontalAlignment="Center" Foreground="White" Width="30" Margin="5"/>
+                                <CheckBox IsChecked="{Binding ConnectionArgs.Rts, Mode=TwoWay}" Width="30" HorizontalAlignment="Center" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.DTR, FallbackValue=DTR}" Foreground="White"  HorizontalAlignment="Center" Width="30" Margin="5"/>
+                                <CheckBox IsChecked="{Binding ConnectionArgs.Dtr, Mode=TwoWay}" Width="30" HorizontalAlignment="Center" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Visibility="{Binding ConnectionArgs.Type, Converter={StaticResource TypeToVisibilty}, ConverterParameter=Tcp}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Port, FallbackValue=Port}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <TextBox Text="{Binding ConnectionArgs.Port, Mode=TwoWay, TargetNullValue=''}" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.IP, FallbackValue=IP}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <TextBox Text="{Binding ConnectionArgs.IP, Mode=TwoWay}" Width="100" HorizontalAlignment="Center" Margin="5"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Visibility="{Binding ConnectionArgs.Type, Converter={StaticResource TypeToVisibilty}, ConverterParameter=Cloud}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Username, FallbackValue=Username}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <TextBox Text="{Binding ConnectionArgs.Username, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5" LostFocus="txtUsername_LostFocus"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Password, FallbackValue=Password}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <PasswordBox Name="password" Width="100" HorizontalAlignment="Center" Margin="5" LostFocus="txtPassword_LostFocus"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Company, FallbackValue=Company}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <TextBox Text="{Binding Company, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" HorizontalAlignment="Center" Margin="5" LostFocus="txtCompany_LostFocus"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Visibility="{Binding ConnectionArgs.Type, Converter={StaticResource TypeToVisibilty}, ConverterParameter=Cloud}">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Dictionary.Scales, FallbackValue=Scales}" TextAlignment="Center" Foreground="White" Width="100" Margin="5"/>
+                                <ComboBox ItemsSource="{Binding Scales}" DisplayMemberPath="Name" SelectedValuePath="GUID" SelectedValue="{Binding ConnectionArgs.ScaleID, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEditable="True" Width="100" Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <Button Content="{Binding Dictionary.Scales, FallbackValue=Scales}" Width="100" Click="btnGetScales_clicked" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+            <Path Name="Toggler" Stroke="{Binding MainColor,FallbackValue=Red}" Panel.ZIndex="200" StrokeThickness="20" Margin="0,7,7,-7" HorizontalAlignment="Right" MouseLeftButtonDown="Toggler_Clicked">
+                <Path.Effect>
+                    <DropShadowEffect  BlurRadius="15" Direction="260" RenderingBias="Performance" ShadowDepth="3"/>
+                </Path.Effect>
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="175,10">
+                            <ArcSegment IsLargeArc="True"
+                                Size="100, 100"
+                                Point="175, 325"
+                                SweepDirection="Clockwise" />
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+            <Label x:Name="lblToggle" Content="Start" HorizontalAlignment="Right" VerticalAlignment="Center" Panel.ZIndex="1000" Margin="5">
+                <Label.LayoutTransform>
+                    <RotateTransform Angle="270"/>
+                </Label.LayoutTransform>
+            </Label>
+        </Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="115,203,688,240.4" Width="197">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="S" Width="25" Foreground="{Binding ColorStable, FallbackValue=gray}" TextAlignment="Center" FontWeight="ExtraBold" FontSize="30" Effect="{StaticResource shadow}" Margin="5"/>
+                <TextBlock Text="G" Width="25" Foreground="{Binding ColorGross, FallbackValue=gray}" TextAlignment="Center" FontWeight="ExtraBold" FontSize="30" Effect="{StaticResource shadow}" Margin="5"/>
+                <TextBlock Text="O" Width="25" Foreground="{Binding ColorUnder, FallbackValue=gray}" TextAlignment="Center" FontWeight="ExtraBold" FontSize="30" Effect="{StaticResource shadow}" Margin="5"/>
+                <TextBlock Text="U" Width="25" Foreground="{Binding ColorOver, FallbackValue=gray}" TextAlignment="Center" FontWeight="ExtraBold" FontSize="30" Effect="{StaticResource shadow}" Margin="5"/>
+            </StackPanel>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=1111}" Foreground="{Binding MainColor, FallbackValue=Red}" Effect="{StaticResource shadow}"  FontFamily="{StaticResource Analog}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,9.8,0" Width="177"/>
+        </StackPanel>
+        <!--<TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Error}" Foreground="Red" Effect="{StaticResource shadow}"  FontFamily="David" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,463,335,39" Width="653" Height="48"/>-->
+        <TextOnAPath:TextOnAPath FontSize="14" DrawPath="True" Foreground="White" Text="{Binding Error, FallbackValue=123}" Margin="66,126,632,122">
+            <TextOnAPath:TextOnAPath.RenderTransform>
+                <RotateTransform CenterX="150" CenterY="150" Angle="270" />
+            </TextOnAPath:TextOnAPath.RenderTransform>
+            <TextOnAPath:TextOnAPath.TextPath>
+                <PathGeometry>
+                    <PathGeometry.Figures>
+                        <PathFigure StartPoint="1,0">
+                            <ArcSegment Size="135,135" IsLargeArc="True" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry.Figures>
+                </PathGeometry>
+            </TextOnAPath:TextOnAPath.TextPath>
+        </TextOnAPath:TextOnAPath>
+    </Grid>
+</Window>

@@ -1,0 +1,4 @@
+D:\data\license\LicenseManager\bin\Debug\Shkila.LicenseManager.dll
+D:\data\license\LicenseManager\bin\Debug\Shkila.LicenseManager.pdb
+D:\data\license\LicenseManager\obj\Debug\Shkila.LicenseManager.dll
+D:\data\license\LicenseManager\obj\Debug\Shkila.LicenseManager.pdb
