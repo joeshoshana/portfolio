@@ -1,0 +1,130 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-2  text-center">
+            <button id="btnNew" class="btn btn_modern">@ViewBag.Dictionary.New</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_license_number">@ViewBag.Dictionary.LicenseNumber</label>
+                            <input id="f_license_number" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 CustomerName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_customers" class="float-right">@ViewBag.Dictionary.CustomerName</label>
+                            <select id="f_customers"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 TransportName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_transports" class="float-right">@ViewBag.Dictionary.TransportName</label>
+                            <select id="f_transports"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_active'>
+                            <label for='f_active'>@ViewBag.Dictionary.ActiveOnly</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" dir="rtl">
+        <table id="items" class="display sh_table" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="th-table text-white">@ViewBag.Dictionary.LicenseNumber</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Tare</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CustomerName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.TransportName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Active</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>
+
+
+<div class="modal fade text-white" id="current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.VehiclesEdit</h5>
+            </div>
+            <div class="modal-body" id="current">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="license_number">@ViewBag.Dictionary.LicenseNumber</label>
+                            <input id="license_number" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="tare">@ViewBag.Dictionary.Tare</label>
+                            <input id="tare" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 CustomerName">
+                        <div class="form-group text-center text-white">
+                            <label for="customers" class="float-right">@ViewBag.Dictionary.CustomerName</label>
+                            <select id="customers"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="weighingModes" class="float-right">@ViewBag.Dictionary.WeighingMode</label>
+                            <select id="weighingModes"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 TransportName">
+                        <div class="form-group text-center text-white">
+                            <label for="transports" class="float-right">@ViewBag.Dictionary.TransportName</label>
+                            <select id="transports"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='active'>
+                            <label for='active'>@ViewBag.Dictionary.Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center">
+                        <button type="button" class="btn btn_modern" data-dismiss="modal">@ViewBag.Dictionary.Cancel</button>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button type="button" id="btnSave" class="btn btn_modern">@ViewBag.Dictionary.Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/datatables/datatables.js")
+@Scripts.Render("~/Scripts/ViewScripts/Vehicles/Index.js")
+
+

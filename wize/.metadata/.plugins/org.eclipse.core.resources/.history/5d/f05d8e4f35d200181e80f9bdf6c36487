@@ -1,0 +1,32 @@
+import com.google.gson.Gson;
+
+public class Request {
+	public String Command;
+	public String MAC;
+	public String Weight;
+	private Gson gson = null;
+	
+	public Request()
+	{
+		gson = new Gson();
+	}
+	
+	public String toJson()
+	{
+		return gson.toJson(this);
+	}
+	
+	public void  fromJson(String json)
+	{
+		Request c = gson.fromJson(json,Request.class);
+		this.Command = c.Command;
+		this.MAC = c.MAC;
+		this.Weight = c.Weight;		
+	}
+	
+	public void send()
+	{
+		
+	}
+	
+}

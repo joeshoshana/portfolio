@@ -1,0 +1,30 @@
+﻿@model Shkila.Model.sp_GetItems_Result
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-white text-center">
+            <h1>@Model.Name</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 text-white text-center">
+            <h1>@Model.SN</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="border-danger col-12 text-white text-center">
+            <h1 id="weight">No Scale</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+            <a class="card text-white bg-primary justify-content-center item" dir="rtl">
+                <h1 class="card-title text-center justify-content-center">
+                    מדבקה
+                </h1>
+            </a>
+            <a class="card text-white bg-danger justify-content-center item" dir="rtl">
+                <h1 class="card-title text-center justify-content-center">
+                    יציאה
+                </h1>
+            </a>
+    </div>
+</div>

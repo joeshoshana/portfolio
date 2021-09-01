@@ -1,0 +1,5 @@
+<Configuration>  
+  <Weight>11</Weight>
+  <Web></Web>
+  <SampleTimeInS>600</SampleTimeInS> 
+</Configuration>

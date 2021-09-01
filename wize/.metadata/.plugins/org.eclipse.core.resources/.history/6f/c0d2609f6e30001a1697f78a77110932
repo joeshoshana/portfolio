@@ -1,0 +1,54 @@
+package Wize;
+
+import java.awt.Color;
+
+public class Weight extends Engine {
+	public Weight(){
+		super();
+	}
+	
+	
+	public void Start()
+	{
+		try
+		{
+			super.Start();
+			
+			while(IsRunning)
+			{
+				WriteToLog("Info", WeightData);
+				if(IsWeight)
+					super.sendWeight(WeightData);			
+			}	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
+	public void Acknowledge(String data)
+	{
+		Response r = Response.fromJson(data);
+		if(r != null) {
+			if(Display() && !r.isSucceded)
+			{
+				disp.setMessage(r.msg ,true);
+				disp.ChangeBackground(Color.red);							
+			}
+			else if(Display() && r.isSucceded)
+			{
+				disp.setMessage("" ,true);							
+			}
+		}
+		else
+			System.out.println(data);
+	}
+
+}
+

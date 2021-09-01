@@ -1,0 +1,28 @@
+Copy Wize.desktop to /home/pi/.config/autostart
+
+sudo mkdir /home/pi/.config/autostart
+
+sudo cp Wize.desktop /home/pi/.config/autostart
+
+
+all Wize folder needs to be located in /home/pi/Wize
+
+
+make sure ScaleReaders.jar, rxtxcomm.jar,librxtxSerial.so are in the computer(java home =/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext)
+
+sudo cp Resources/ScaleReaders.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/RXTXcomm.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/librxtxSerial.so /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/gson-2.6.2.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-gpio-extension.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-device.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-core.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+
+Start.sh need permissions
+
+sudo chmod 777 Start.sh
+
+build Wize:
+cd src
+javac Wize/Wize.java
+java Wize/Wize

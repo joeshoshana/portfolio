@@ -1,0 +1,11 @@
+package Wize;
+
+public enum WizeModules {
+	Weight,
+	OrAkivaBridge,
+	Silo,
+	Tag,
+	Siemens,
+	IO,
+	None
+}

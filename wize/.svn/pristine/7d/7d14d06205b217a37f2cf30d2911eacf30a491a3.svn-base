@@ -1,0 +1,76 @@
+
+public class OrAkivaBridge extends Engine {
+	private Boolean IsFirstUp = false;
+	private Boolean IsSecondUp = false;
+	public OrAkivaBridge(){
+		super();
+	}
+	
+	
+	public void Start()
+	{
+		try
+		{
+			super.Start();
+			
+			while(IsRunning)
+			{
+				if(IsSiemens)
+				{
+					switch(SiemensData)
+					{
+					case "I001":
+						IsFirstUp = true;
+						break;
+				/*	case "I000":
+						IsFirstUp = false;
+						break;*/
+					case "I011":
+						IsSecondUp = true;
+						break;
+					case "I010":
+						IsSecondUp = false;
+						break;
+					}
+					IsSiemens = false;
+				}
+				
+				//WriteToLog("Info", WeightData);
+				if(IsWeight)
+					super.sendWeight(WeightData);
+				
+				/*if(!IsFirstUp || IsSecondUp)
+					IsTag = false;*/ 	
+				
+				WriteToLog("Info", IsFirstUp.toString());
+				WriteToLog("Info", IsSecondUp.toString());
+				WriteToLog("Info", IsTag.toString());
+				/*if(IsFirstUp && !IsSecondUp && IsWeight)
+				{*/
+					if(IsTag)
+					{
+						WriteToLog("Error", "all data received");
+						super.sendTag(TagData);
+						WriteToLog("Error", "tag sent");
+						IsFirstUp = false;
+						IsSecondUp = false;
+						IsTag = false;	
+					}
+				//}
+				
+				//IsWeight = false;
+			}	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+
+}
+

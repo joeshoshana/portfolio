@@ -1,0 +1,394 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import LogHandler.LogListener;
+import LogHandler.LogType;
+import Processors.Modules;
+import Processors.Processor;
+import ScaleReaders.ConnectionArgs;
+import ScaleReaders.ConnectionType;
+import ScaleReaders.ErrorListener;
+import ScaleReaders.ScaleHeaders;
+import ScaleReaders.ScaleReader;
+import ScaleReaders.WeightArgs;
+import ScaleReaders.WeightListener;
+import Siemens.ReceiveListener;
+import Siemens.Siemens;
+import Siemens.SiemensArgs;
+import Siemens.SiemensCommands;
+import Tags.TagArgs;
+import Tags.TagListener;
+import Tags.TagModules;
+import Tags.TagReader;
+
+public class Engine {
+	private static Engine m_instance = null; 
+	private static Object m_lock = new Object();
+	private String m_activeDirectory = "file:///" + System.getProperty("user.dir").replace("\\", "/");
+	private String m_configFile = m_activeDirectory + "/Configuration.xml";
+	private Boolean IsDemo = false;
+	private Boolean toggle = false;
+	private String m_mac = null;
+	private ScaleReader m_sr = null;
+	private Siemens m_siemens = null;
+	private TagReader m_tr = null;
+	private Processor m_process = null;
+	
+	private Engine(){
+		WriteToLog("Info","Loading Configuration");
+		
+		if(!Configuration.LoadConfiguration(m_configFile))
+		{
+			WriteToLog("Error",Configuration.Error);
+			return;
+		}
+		WriteToLog("Info","Configuration Loaded");	
+		m_mac = GetMac(); //GetMacRaspberry();
+		
+	} 
+	
+	
+	public static Engine getInstance() 
+    { 
+		synchronized (m_lock) {
+			if (m_instance == null) 
+				m_instance = new Engine(); 
+		}
+        return m_instance; 
+    }
+	
+	public boolean InitTag()
+	{
+		try
+		{
+			TagArgs args = new TagArgs();
+			args.Com = Configuration.TagCom;
+			args.BaudRate = 9600;			//		
+			args.DataBits = 8;
+			args.Dtr = false;
+			args.Parity = 0;
+			args.Rts = false;
+			args.StopBits = 1;
+			
+			m_tr = TagReader.Factory(TagModules.Bridge, args);
+			if(m_tr == null)
+				throw new Exception("Invalid TagReader");
+			
+			m_tr.OnLog = new LogListener() {
+
+				@Override
+				public void Log(LogType logType, String msg) {
+					WriteToLog(logType.name(), msg); 
+				}
+			};
+			
+		
+			
+			m_tr.OnTag = new TagListener() {
+
+				@Override
+				public void Tag(String data) {
+					try
+					{
+						
+						if(data != null && data.length() > 0)
+						{							
+							System.out.println(data);
+							Request req = new Request();
+							req.Command = "vehicle_weight_modify";
+							if(IsDemo)
+							{
+								toggle = !toggle;
+								
+								req.MAC = (toggle)?"1":"demo";
+							}
+							else
+								req.MAC = m_mac;
+							if(req.MAC == null)
+							{
+								System.out.println("No mac address");
+								return;
+							}
+							if(IsDemo)
+							{
+								req.Tag= "000001";
+							}
+							else
+								req.Tag=data;
+							
+							req.send(Configuration.Web);
+						}					
+					}
+					catch( Exception ex)
+					{
+						ex.printStackTrace();
+					}
+	
+				}
+			};
+			return m_tr.Connect();
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean InitSiemens()
+	{
+		try
+		{
+			SiemensArgs args = new SiemensArgs();
+			args.IP = Configuration.SiemensIP;
+			Integer port = 0;
+			try {  
+				port = Integer.parseInt(Configuration.SiemensPort);    
+		      } catch (NumberFormatException e) {  
+		         throw e;
+		      } 
+			args.Port = port;
+			m_siemens = new Siemens(args);
+			
+			m_siemens.OnReceive = new ReceiveListener() {
+
+				@Override
+				public void Receive(String data) {
+					WriteToLog("Info", data);
+					switch(data)
+					{
+					case "I001":
+						m_siemens.Send(SiemensCommands.Q001);
+						break;
+					case "I000":
+						m_siemens.Send(SiemensCommands.Q000);
+						break;
+					case "I011":
+						m_siemens.Send(SiemensCommands.Q011);
+						break;
+					case "I010":
+						m_siemens.Send(SiemensCommands.Q010);
+						break;
+					}
+					
+				}
+			};
+			
+			m_siemens.OnLog = new LogListener() {
+
+				@Override
+				public void Log(LogType logType, String msg) {
+					WriteToLog(logType.name(), msg); 
+				}
+			};
+			return m_siemens.Connect();
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean InitScale()
+	{
+		try
+		{
+			ConnectionArgs connArgs = new ConnectionArgs();
+			connArgs.BaudRate = 9600;			//
+			connArgs.Com = Configuration.Com;		
+			connArgs.DataBits = 8;
+			connArgs.Dtr = false;
+			connArgs.Parity = 0;
+			connArgs.Rts = false;
+			connArgs.StopBits = 1;
+			connArgs.Type = Configuration.Com == "" || Configuration.Com.length()==0 ? ConnectionType.Tcp : ConnectionType.Serial;
+			
+			
+			m_sr = ScaleReader.Factory(ScaleHeaders.valueOf(Configuration.Scale), connArgs);
+			//m_sr = ScaleReader.Factory(ScaleHeaders.Test, connArgs);
+			m_sr.OnErrorListener = new ErrorListener() {
+
+				@Override
+				public void Error(String error) {
+					System.out.println("Error:" + error);					
+				}
+			};	
+			
+			m_sr.OnWeightListener =  new WeightListener() {
+				
+							@Override
+				public void Weight(WeightArgs e) {
+								try
+								{
+									if(e != null)
+									{
+										System.out.println(e.Weight);	
+										Request req = new Request();
+										req.Command = "update_weight";
+										if(IsDemo)
+										{
+											toggle = !toggle;
+											
+											req.MAC = (toggle)?"1":"demo";
+										}
+										else
+											req.MAC = m_mac;
+										if(req.MAC == null)
+										{
+											System.out.println("No mac address");
+											return;
+										}
+										if(IsDemo)
+										{
+											req.Weight = (toggle)?"15.32":"2258";
+										}
+										else
+											req.Weight=e.Weight;
+										
+										if(Display())
+											WeightDisplay.lblWeight.setText(e.Weight);
+										
+										req.send(Configuration.Web);
+									}						
+								}
+								catch( Exception ex)
+								{
+									ex.printStackTrace();
+								}
+							}
+			};			
+	        m_sr.Connect();	       	       
+	        	        
+			return m_sr != null ;
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return false;
+		}
+	}
+
+	private String GetMac() {
+		try
+		{
+			NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+
+			byte[] macB = network.getHardwareAddress();
+			 StringBuilder sb = new StringBuilder(18);
+			    for (byte b : macB) {
+			        if (sb.length() > 0)
+			            sb.append(':');
+			        sb.append(String.format("%02x", b));
+			    }
+			String mac = sb.toString();;
+			System.out.println(mac);
+			return mac;	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return null;
+		}
+		
+	}
+	
+	private String GetMacRaspberry() {
+		try
+		{
+			String command = "ping -c 3 www.google.com";
+
+	        Process proc = Runtime.getRuntime().exec(command);
+
+	        // Read the output
+
+	        BufferedReader reader =  
+	              new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+	        String mac = "";
+	        String line = "";
+	        while((line = reader.readLine()) != null) {
+	        	if(line.toLowerCase().contains("serial"))
+	        		{
+	        			mac = line.split(":")[1].trim();
+	        			System.out.print(mac + "\n");
+	        		}
+	        }
+
+	        proc.waitFor(); 
+						
+			System.out.println(mac);
+			return mac;	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return null;
+		}
+		
+	}
+	
+	public void Process()
+	{
+		/*Thread sr = new Thread(() -> {
+		if(Configuration.Scale.length() > 0)
+		{
+			InitScale();
+			m_sr.IsRunning = true;
+			m_sr.Process();	
+		}	
+	});
+	sr.start();		
+	*/
+	
+		Thread tr = new Thread(() -> {
+			if(Configuration.TagActive.length() > 0 && Boolean.parseBoolean(Configuration.TagActive))
+			{
+				InitTag();
+				m_tr.IsRunning = true;
+				m_tr.Process();	
+			}	
+		});
+		tr.start();
+		
+		Thread s = new Thread(() -> {
+			if(Configuration.SiemensActive.length() > 0 && Boolean.parseBoolean(Configuration.SiemensActive))
+			{
+				InitSiemens();
+				m_siemens.IsRunning = true;
+				m_siemens.Process();
+			}	
+		});
+		s.start();
+		
+		/*if(Configuration.Module.length() >0)
+		{
+			m_process = Processor.Factory(Modules.valueOf(Configuration.Module));
+		}*/
+	}
+	
+	public void WriteToLog(String msgType, String msg)
+    {		
+		Date date = new Date();
+		SimpleDateFormat ft = 
+			      new SimpleDateFormat ("dd/MM/yyyy HH:mm:ss");	
+		String message = msgType + " - " + ft.format(date) + " - " + msg + System.lineSeparator();
+		System.out.println(message);
+    }
+	
+	public boolean Display()
+	{
+		if(Configuration.Display.length() > 0)
+		{
+			boolean val = Boolean.parseBoolean(Configuration.Display);
+			return val;
+		}
+		return false;
+	}
+}

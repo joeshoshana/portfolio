@@ -1,0 +1,29 @@
+// Copy files to SD from NOOBS folder
+// All process will be done with WAN not connected
+// Copy Wize file to the Raspberry machine to folder /home/pi/Wize
+// ---------------------------------------------------------------
+sudo mkdir /home/pi/.config/autostart
+sudo cp Wize.desktop /home/pi/.config/autostart
+
+// Copy utilities folder  C:\Projects\Projects\Wize\Utilities\src\Utilities  to  /home/pi/Wize/src
+
+
+// Copy the folowing files: ScaleReaders.jar, rxtxcomm.jar,librxtxSerial.so are in the computer (java home =/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext) by using the following commands:
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sudo cp Resources/ScaleReaders.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/RXTXcomm.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/librxtxSerial.so /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/gson-2.6.2.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-gpio-extension.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-device.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+sudo cp Resources/pi4j-core.jar /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt/jre/lib/ext
+
+sudo chmod 777 Start.sh
+
+// Find scale name in /dev by inserting the usb cable from scale and update configuration.xml. Include the /dev/ prefix in the port name.
+
+// Finally, build Wize:
+// --------------------
+cd src
+javac Wize/Wize.java
+java Wize/Wize

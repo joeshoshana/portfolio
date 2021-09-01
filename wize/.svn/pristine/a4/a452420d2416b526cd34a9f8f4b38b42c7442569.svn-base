@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="language" class="float-control">@ViewBag.Dictionary.Lang</label>
+                <select id="language"></select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="logo" class="float-control">@ViewBag.Dictionary.Logo</label>
+                <form action="@Url.Action("Logo")" id="logo">
+                </form>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="btnSave" class="btn btn-accept">&#10003;</button>
+</div>
+
+
+
+@Scripts.Render("~/Scripts/ViewScripts/SystemSettings/Index.js")

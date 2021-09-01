@@ -1,0 +1,11 @@
+<Configuration>  
+ <Module>OrAkivaBridge</Module>
+ <Scale>J6478</Scale>
+ <Com>COM3</Com>
+ <TagCom>/dev/ttyUSB0</TagCom>
+ <Display>false</Display>
+ <Web>https://mishkalim.co.il/Scales/Client</Web>
+ <SiemensIP>192.168.0.102</SiemensIP>
+ <SiemensPort>2001</SiemensPort>
+ <!--<Web>http://localhost:50587/Scales/Client</Web>-->
+</Configuration>

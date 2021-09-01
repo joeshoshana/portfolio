@@ -1,0 +1,12 @@
+
+
+public enum WizeModules {
+	Weight,
+	OrAkivaBridge,
+	Silo,
+	Tag,
+	Siemens,
+	IO,
+	LPR,
+	None
+}

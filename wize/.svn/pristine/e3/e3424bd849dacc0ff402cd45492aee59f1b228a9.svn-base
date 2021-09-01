@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\..\Server\packages.config" />
+  <repository path="..\..\Services\WeightModificationAlarm\packages.config" />
+  <repository path="..\..\WeightServer\packages.config" />
+  <repository path="..\Model\packages.config" />
+  <repository path="..\UI\packages.config" />
+</repositories>

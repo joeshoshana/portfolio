@@ -1,0 +1,36 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-11 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        מסננים
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_name">שם מוצר</label>
+                            <input id="f_name" class="form-control" type="text" placeholder="שם מוצר" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_sn">מק''ט</label>
+                            <input id="f_sn" class="form-control" type="text" placeholder="מק''ט" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="items">
+
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/ViewScripts/ItemsWeighing/Index.js")

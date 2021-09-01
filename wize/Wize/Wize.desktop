@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Wize
+Comment=Shkila ltd.
+NoDisplay=false
+Exec=/usr/bin/lxterminal -e /home/pi/Wize/Start.sh
+NotShoeIn=GNOME;KDE;XFCE;

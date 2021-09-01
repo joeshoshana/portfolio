@@ -1,0 +1,7 @@
+
+public enum WizeModules {
+	Normal,
+	OrAkivaBridge,
+	Silo,
+	None
+}

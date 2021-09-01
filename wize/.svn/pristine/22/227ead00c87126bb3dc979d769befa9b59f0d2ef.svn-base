@@ -1,0 +1,34 @@
+
+
+public class Weight extends Engine {
+	public Weight(){
+		super();
+	}
+	
+	
+	public void Start()
+	{
+		try
+		{
+			super.Start();
+			
+			while(IsRunning)
+			{
+				WriteToLog("Info", WeightData);
+				if(IsWeight)
+					super.sendWeight(WeightData);			
+			}	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+
+}
+

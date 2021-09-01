@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="address" class="float-control">@ViewBag.Dictionary.Address</label>
+                <input id="address" type="text" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="id" class="float-control">@ViewBag.Dictionary.ID</label>
+                <input id="id" type="text" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="language" class="float-control">@ViewBag.Dictionary.Lang</label>
+                <select id="language"></select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="certificate_title" class="float-control">@ViewBag.Dictionary.UpperTitle</label>
+                <input id="certificate_title" type="text" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label class="float-control">@ViewBag.Dictionary.TimeToResetUnfinishedWeights</label>
+            </div>
+            <div class="row text-white">
+                <label for="hour" class="col m-1 text-center float-control">@ViewBag.Dictionary.Hour</label>
+                <label for="minute" class="col m-1 text-center float-control">@ViewBag.Dictionary.Minute</label>
+            </div>
+            <div class="row text-white">
+                <input id="hour" class="col m-1" type="number"/>
+                <input id="minute" class="col m-1" type="number" />
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group text-center text-white">
+                <label for="logo" class="float-control">@ViewBag.Dictionary.Logo</label>
+                <form action="@Url.Action("Logo")"
+                      id="logo">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row justify-content-center text-center m-3">
+        <div class="col-12 text-white mb-2"><h4>Create custom fields</h4></div>
+        <div class="col col-lg-8">
+            <div class="row justify-content-center">
+                <div class="col-2 p-0 m-0">
+                    <label for="newField" class="text-white">Field Name:</label>
+                </div>
+                <div class="col-6 m-0 p-0">
+                    <input type="text" id="newField" />
+                </div>
+                <div class="col-4 col-md-2 m-0 p-0">
+                    <button class="btn btn-secondary" id="createFieldBtn">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="row justify-content-center text-center">
+        <div class="col-10 mt-4">
+            <button type="button" id="btnSave" class="btn btn_modern">@ViewBag.Dictionary.Save</button>
+        </div>
+    </div> 
+    
+    
+</div>
+
+
+
+@Scripts.Render("~/Scripts/ViewScripts/CompaniesSettings/Index.js")

@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{526703D1-4930-4C70-A62F-9D2C93DFB1FA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shkila.Model</RootNamespace>
+    <AssemblyName>Shkila.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Companies.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompaniesForms.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompaniesFormsFields.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompaniesSettings.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompaniesSystemSettings.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompaniesTables.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Connections.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customers.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomersContacts.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dictionary.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Drivers.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Forms.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormsFields.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormsInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoodsWeighing.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GoodsWeighingLines.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\CompaniesSystemSettingsHandler.cs" />
+    <Compile Include="Handlers\CompaniesSettingsHandler.cs" />
+    <Compile Include="Handlers\CompaniesFormsHandler.cs" />
+    <Compile Include="Handlers\CompaniesFormsFieldsHandler.cs" />
+    <Compile Include="Handlers\CompaniesTablesHandler.cs" />
+    <Compile Include="Handlers\DictionaryHandler.cs" />
+    <Compile Include="Handlers\FormsFieldsHandler.cs" />
+    <Compile Include="Handlers\SendingMethodsHandler.cs" />
+    <Compile Include="Handlers\WeighingModesHandler.cs" />
+    <Compile Include="Handlers\PermissionsInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\PermissionsSettingsInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\InnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\SettingsInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\SettingsHandler.cs" />
+    <Compile Include="Handlers\FormsInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\PermissionsTablesInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\PermissionsFormsInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\SilosLogHandler.cs" />
+    <Compile Include="Handlers\TablesInnerPermissionsHandler.cs" />
+    <Compile Include="Handlers\PermissionsHandler.cs" />
+    <Compile Include="Handlers\DriversHandler.cs" />
+    <Compile Include="Handlers\ConnectionsHandler.cs" />
+    <Compile Include="Handlers\UnitsHandler.cs" />
+    <Compile Include="Handlers\GoodsWeighingLinesHandler.cs" />
+    <Compile Include="Handlers\GoodsWeighingHandler.cs" />
+    <Compile Include="Handlers\SitesHandler.cs" />
+    <Compile Include="Handlers\CustomersContactsHandler.cs" />
+    <Compile Include="Handlers\SuppliersContactsHandler.cs" />
+    <Compile Include="Handlers\SilosHandler.cs" />
+    <Compile Include="Handlers\TransportsHandler.cs" />
+    <Compile Include="Handlers\VehiclesWeighingHandler.cs" />
+    <Compile Include="Handlers\VehiclesHandler.cs" />
+    <Compile Include="Handlers\SuppliersHandler.cs" />
+    <Compile Include="Handlers\CustomersHandler.cs" />
+    <Compile Include="Handlers\ItemsHandler.cs" />
+    <Compile Include="Handlers\FormsHandler.cs" />
+    <Compile Include="Handlers\TablesHandler.cs" />
+    <Compile Include="Handlers\ScalesTypesHandler.cs" />
+    <Compile Include="Handlers\CompaniesHandler.cs" />
+    <Compile Include="Handlers\ScalesHandler.cs" />
+    <Compile Include="Handlers\UsersHandler.cs" />
+    <Compile Include="InnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Items.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Partials\sp_GetCompaniesFormsFields_Result.cs" />
+    <Compile Include="Partials\sp_GetCompaniesForms_Result.cs" />
+    <Compile Include="Partials\sp_GetConnections_Result.cs" />
+    <Compile Include="Partials\sp_GetDrivers_Result.cs" />
+    <Compile Include="Partials\sp_GetTransports_Result.cs" />
+    <Compile Include="Partials\sp_GetCompanies_Result.cs" />
+    <Compile Include="Partials\sp_GetCompaniesSettings_Result.cs" />
+    <Compile Include="Partials\sp_GetCompaniesSystemSettings_Result.cs" />
+    <Compile Include="Partials\sp_GetCustomersContacts_Result.cs" />
+    <Compile Include="Partials\sp_GetCustomers_Result.cs" />
+    <Compile Include="Partials\sp_GetFormsFields_Result.cs" />
+    <Compile Include="Partials\sp_GetForms_Result.cs" />
+    <Compile Include="Partials\sp_GetFormsInnerPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetGoodsWeighing_Result.cs" />
+    <Compile Include="Partials\sp_GetGoodsWeighingLines_Result.cs" />
+    <Compile Include="Partials\sp_GetItems_Result.cs" />
+    <Compile Include="Partials\sp_GetPermissionsFormsInnerPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetPermissionsSettingsInnerPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetPermissionsTablesInnerPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetScales_Result.cs" />
+    <Compile Include="Partials\sp_GetScalesTypes_Result.cs" />
+    <Compile Include="Partials\sp_GetSettings_Result.cs" />
+    <Compile Include="Partials\sp_GetSettingsInnerPermissions_Result.cs" />
+    <Compile Include="Partials\sp_GetSilos_Result.cs" />
+    <Compile Include="Partials\sp_GetSites_Result.cs" />
+    <Compile Include="Partials\sp_GetSuppliersContacts_Result.cs" />
+    <Compile Include="Partials\sp_GetSuppliers_Result.cs" />
+    <Compile Include="Partials\sp_GetTables_Result.cs" />
+    <Compile Include="Partials\sp_GetUnits_Result.cs" />
+    <Compile Include="Partials\sp_GetVehicles_Result.cs" />
+    <Compile Include="Partials\sp_GetSilosLog_Result.cs" />
+    <Compile Include="Partials\sp_GetCompaniesTables_Result.cs" />
+    <Compile Include="Partials\sp_GetUsers_Result.cs" />
+    <Compile Include="Partials\sp_GetVehiclesWeighing_Result.cs" />
+    <Compile Include="Permissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionsFormsInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionsInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionsSettingsInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionsTablesInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ReportsEntity\VehiclesWeighingEntity.cs" />
+    <Compile Include="Scales.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScalesTypes.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SendingMethods.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Silos.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SilosLog.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sites.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompaniesFormsFields_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompaniesForms_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompaniesSettings_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompaniesSystemSettings_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompaniesTables_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCompanies_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetConnections_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCustomersContacts_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetCustomers_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetDrivers_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFormsFields_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetFormsInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetForms_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetGoodsWeighingLines_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetGoodsWeighing_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetItems_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetPermissionsFormsInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetPermissionsInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetPermissionsSettingsInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetPermissionsTablesInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetScalesTypes_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetScales_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSendingMethods_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSettingsInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSettings_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSilosLog_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSilos_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSites_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSuppliersContacts_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSuppliers_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetSystemSettings_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetTablesInnerPermissions_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetTables_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetTransports_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUnits_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUsers_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetVehiclesWeighing_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetVehicles_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetWeighingModes_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_RunBackup_Result.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Suppliers.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SuppliersContacts.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemSetting.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tables.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TablesInnerPermissions.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transports.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Units.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities.cs" />
+    <Compile Include="Vehicles.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VehiclesWeighing.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wanager.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wanager.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wanager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wanager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Wanager.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="WeighingModes.cs">
+      <DependentUpon>Wanager.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Wanager.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Wanager.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Shkila.Model.Reports.ReportsEntity.VehiclesWeighingEntity.datasource" />
+    <None Include="Wanager.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Wanager.edmx</DependentUpon>
+      <LastGenOutput>Wanager.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Wanager.edmx.diagram">
+      <DependentUpon>Wanager.edmx</DependentUpon>
+    </None>
+    <None Include="Wanager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Wanager.edmx</DependentUpon>
+      <LastGenOutput>Wanager.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\VehiclesWeighing_en.rdlc" />
+    <EmbeddedResource Include="Reports\VehiclesWeighing.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Utilities\Util\Utilities.csproj">
+      <Project>{f2b1ec35-3020-44a1-b697-f0a1e5487d17}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

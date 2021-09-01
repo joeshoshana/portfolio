@@ -1,0 +1,322 @@
+﻿<a id="fileLink" href="" target="_blank"></a>
+<div class="container">
+    <div class="row">
+        <div class="col-2 text-center">
+            <button id="btnBack" data-toggle="tooltip" title="אחורה" class="btn btn_modern">@ViewBag.Dictionary.Back</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_certificate_id">@ViewBag.Dictionary.CertificateNumber</label>
+                            <input id="f_certificate_id" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 ItemName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_items" class="float-right">@ViewBag.Dictionary.ItemName</label>
+                            <select id="f_items" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 LicenseNumber">
+                        <div class="form-group text-center text-white">
+                            <label for="f_vehicles" class="float-right">@ViewBag.Dictionary.LicenseNumber</label>
+                            <select id="f_vehicles" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 TransportName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_transports" class="float-right">@ViewBag.Dictionary.TransportName</label>
+                            <select id="f_transports" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 DriverName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_drivers" class="float-right">@ViewBag.Dictionary.DriverName</label>
+                            <select id="f_drivers" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 SourceSite">
+                        <div class="form-group text-center text-white">
+                            <label for="f_insites" class="float-right">@ViewBag.Dictionary.SourceSite</label>
+                            <select id="f_insites" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 DestinationSite">
+                        <div class="form-group text-center text-white">
+                            <label for="f_outsites" class="float-right">@ViewBag.Dictionary.DestinationSite</label>
+                            <select id="f_outsites" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 CustomerName">
+                        <div class="form-group text-center text-white">
+                            <label for="f_customers" class="float-right">@ViewBag.Dictionary.CustomerName</label>
+                            <select id="f_customers" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_users" class="float-right">@ViewBag.Dictionary.Username</label>
+                            <select id="f_users" class="form-control"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_weightType" class="float-right">סוג תנועה</label>
+                            <select id="f_weightType" class="form-control">
+                                <option value="0">2 שקילות</option>
+                                <option value="2">שקילת כניסה</option>
+                                <option value="1">שקילת יציאה</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_from_out_date">@ViewBag.Dictionary.FromWeightDate</label>
+                            <input id="f_from_out_date" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_to_out_date">@ViewBag.Dictionary.ToWeightDate</label>
+                            <input id="f_to_out_date" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_is_cancelled'>
+                            <label for='f_is_cancelled'>@ViewBag.Dictionary.CancelledOnly</label>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_is_manual'>
+                            <label for='f_is_manual'>@ViewBag.Dictionary.ManualOnly</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" dir="rtl">
+        <table id="certificates" class="display sh_table" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CertificateNumber</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.TransportName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.LicenseNumber</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.InDate</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.OutDate</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.InWeight</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.OutWeight</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Netto</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ItemName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.SourceSite</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.DestinationSite</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CustomerName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.DriverName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Username</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.IsManual</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Cancelled</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Remarks</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CertificateID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.SendByMail</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.SendBySMS</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                </tr>
+            </thead>
+            <!--<tfoot>
+                <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+            </tfoot>-->
+        </table>
+    </div>
+
+
+</div>
+
+<div class="modal fade text-white" id="current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.CertificateEdit</h5>
+            </div>
+            <div class="modal-body" id="current">
+                <div class="row justify-content-center">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label class="h1" id="certificate_id"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1 ItemName">
+                        <div class="form-group text-center text-white">
+                            <label for="items" class="float-right">@ViewBag.Dictionary.ItemName</label>
+                            <select id="items" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white LicenseNumber">
+                            <label for="vehicles" class="float-right">@ViewBag.Dictionary.LicenseNumber</label>
+                            <select id="vehicles" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 TransportName">
+                        <div class="form-group text-center text-white">
+                            <label for="transports" class="float-right">@ViewBag.Dictionary.TransportName</label>
+                            <select id="transports" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 DriverName">
+                        <div class="form-group text-center text-white">
+                            <label for="drivers" class="float-right">@ViewBag.Dictionary.DriverName</label>
+                            <select id="drivers" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 SourceSite">
+                        <div class="form-group text-center text-white">
+                            <label for="insites" class="float-right">@ViewBag.Dictionary.SourceSite</label>
+                            <select id="insites" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 DestinationSite">
+                        <div class="form-group text-center text-white">
+                            <label for="outsites" class="float-right">@ViewBag.Dictionary.DestinationSite</label>
+                            <select id="outsites" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 CustomerName">
+                        <div class="form-group text-center text-white">
+                            <label for="customers" class="float-right">@ViewBag.Dictionary.CustomerName</label>
+                            <select id="customers" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="users" class="float-right">@ViewBag.Dictionary.Username</label>
+                            <select id="users" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="in_date">@ViewBag.Dictionary.InDate</label>
+                            <input id="in_date" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="out_date">@ViewBag.Dictionary.OutDate</label>
+                            <input id="out_date" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="in_weight">@ViewBag.Dictionary.InWeight</label>
+                            <input id="in_weight" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="out_weight">@ViewBag.Dictionary.OutWeight</label>
+                            <input id="out_weight" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="remarks">@ViewBag.Dictionary.Remarks</label>
+                            <input id="remarks" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="reference">@ViewBag.Dictionary.Reference</label>
+                            <input id="reference" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='is_cancelled'>
+                            <label for='is_cancelled'>@ViewBag.Dictionary.Cancelled</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center">
+                        <button type="button" class="btn btn_modern" data-dismiss="modal">@ViewBag.Dictionary.Cancel</button>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button type="button" id="btnSave" class="btn btn_modern">@ViewBag.Dictionary.Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sub_items" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header text-white">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.Contacts</h5>
+            </div>
+            <div class="modal-body" dir="rtl">
+                <table id="contacts" class="display sh_table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="th-table text-white">@ViewBag.Dictionary.FirstName</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.LastName</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Email</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Pelephone</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Remarks</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Active</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn_modern" data-dismiss="modal">@ViewBag.Dictionary.Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@Scripts.Render("~/Scripts/datatables/datatables.js")
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+@Scripts.Render("~/Scripts/datatables/datatables.buttons.js")
+@Scripts.Render("~/Scripts/ViewScripts/VehiclesWeighing/Certificates.js")
+
+

@@ -1,0 +1,36 @@
+
+
+public class Tag  extends Engine {
+	public Tag(){
+		super();
+	}
+	
+	
+	public void Start()
+	{
+		try
+		{
+			super.Start();
+			
+			while(IsRunning)
+			{	
+				if(IsTag && TagData.length() > 0)
+				{						
+					WriteToLog("Error", "all data received");
+					super.sendTag(TagData);
+					WriteToLog("Error", "tag sent");
+					IsTag = false;	
+				}				
+			}	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+}

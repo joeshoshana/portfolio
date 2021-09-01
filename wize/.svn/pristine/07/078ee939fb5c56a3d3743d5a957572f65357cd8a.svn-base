@@ -1,0 +1,24 @@
+<Configuration>  
+ <Module>OrAkivaBridge</Module>
+ <Scale>Test</Scale>
+ <Com>COM3</Com>
+ <TagCom>COM2</TagCom>
+ <TagModule>Keys</TagModule>
+ <Display>true</Display>
+ <!--<Web>https://mishkalim.co.il/Scales/Client</Web>-->
+ <SiemensIP>192.168.2.124</SiemensIP> 
+ <SiemensPort>2000</SiemensPort>
+ <LPRIP>192.168.2.100</LPRIP>
+ <LPRPort>7600</LPRPort>
+ <ResetTime>15</ResetTime>
+ <OfflineInterval>1</OfflineInterval>
+ <!--<Web>http://fansrating.com/Scales/Client</Web>-->
+ <Web>http://localhost:50587/Scales/Client</Web>
+ <GPIOS>
+	 <GPIO>
+	 	<IO>IO_02</IO>
+	 	<State>High</State>
+	 	<Transput>Output</Transput>	 
+	 </GPIO>	
+ </GPIOS>
+</Configuration>

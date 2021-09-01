@@ -1,0 +1,231 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-2  text-center">
+            <button id="btnNew" class="btn btn_modern">@ViewBag.Dictionary.New</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_code">@ViewBag.Dictionary.CustomerCode</label>
+                            <input id="f_code" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_name">@ViewBag.Dictionary.CustomerName</label>
+                            <input id="f_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_id">@ViewBag.Dictionary.ID</label>
+                            <input id="f_id" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_address">@ViewBag.Dictionary.Address</label>
+                            <input id="f_address" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_active'>
+                            <label for='f_active'>@ViewBag.Dictionary.ActiveOnly</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-responsive" dir="rtl">
+        <table id="items" class="display sh_table" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CustomerCode</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.CustomerName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>                    
+                    <th class="th-table text-white">@ViewBag.Dictionary.Address</th>                                       
+                    <th class="th-table text-white">@ViewBag.Dictionary.VIP</th> 
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>                    
+                    <th class="th-table text-white">@ViewBag.Dictionary.Active</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header text-white">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.CustomerEdit</h5>
+            </div>
+            <div class="modal-body" id="current">
+                <div id="guid" hidden></div>
+                <div id="company_id" hidden></div>
+                <div class="row text-white" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="code">@ViewBag.Dictionary.CustomerCode</label>
+                            <input id="code" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="name">@ViewBag.Dictionary.CustomerName</label>
+                            <input id="name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center">
+                            <label for="id">@ViewBag.Dictionary.ID</label>
+                            <input id="id" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-white" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="address">@ViewBag.Dictionary.Address</label>
+                            <input id="address" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='vip'>
+                            <label for='vip'>@ViewBag.Dictionary.VIP</label>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='active'>
+                            <label for='active'>@ViewBag.Dictionary.Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center scroll-y table-responsive" dir="rtl">
+                <div class="col-2  text-center form-group">
+                    <button id="btnNewContact" class="btn btn_modern">@ViewBag.Dictionary.New</button>
+                </div>
+                <table id="sub_items" class="display sh_table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="th-table text-white">@ViewBag.Dictionary.FirstName</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.LastName</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Email</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Pelephone</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.SendWeightsByMail</th>                            
+                            <th class="th-table text-white">@ViewBag.Dictionary.Remarks</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.Active</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                            <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-decline" data-dismiss="modal">&#10005;</button>
+                <button type="button" id="btnSave" class="btn btn-accept">&#10003;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade text-white" id="sub_current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.ContactEdit</h5>
+            </div>
+            <div class="modal-body" id="current">
+                <div id="contact_guid" hidden></div>
+                <div id="supplier_id" hidden></div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="first_name">@ViewBag.Dictionary.FirstName</label>
+                            <input id="first_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="last_name">@ViewBag.Dictionary.LastName</label>
+                            <input id="last_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center">
+                            <label for="mail">@ViewBag.Dictionary.Email</label>
+                            <input id="mail" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="phone">@ViewBag.Dictionary.Pelephone</label>
+                            <input id="phone" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="remarks">@ViewBag.Dictionary.Remarks</label>
+                            <input id="remarks" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='isSendWeightsByMail'>
+                            <label for='isSendWeightsByMail'>@ViewBag.Dictionary.SendWeightsByMail</label>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 sendingMethod">
+                        <div class="form-group text-center text-white">
+                            <label for="sendingMethod" class="float-right">@ViewBag.Dictionary.SendingMethod</label>
+                            <select id="sendingMethod"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='contact_active'>
+                            <label for='contact_active'>@ViewBag.Dictionary.Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center">
+                        <button type="button" class="btn btn_modern" data-dismiss="modal">@ViewBag.Dictionary.Cancel</button>
+                    </div>
+                    <div class="col-2 text-center">
+                        <button type="button" id="btnSaveContact" class="btn btn_modern">@ViewBag.Dictionary.Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/datatables/datatables.js")
+@Scripts.Render("~/Scripts/ViewScripts/Customers/Index.js")
+
+

@@ -1,0 +1,136 @@
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import ScaleReaders.ConnectionArgs;
+import ScaleReaders.ConnectionType;
+import ScaleReaders.ErrorListener;
+import ScaleReaders.ScaleHeaders;
+import ScaleReaders.ScaleReader;
+import ScaleReaders.WeightArgs;
+import ScaleReaders.WeightListener;
+
+public class Engine {
+	private static Engine m_instance = null; 
+	private static Object m_lock = new Object();
+	private String m_activeDirectory = "file:///" + System.getProperty("user.dir").replace("\\", "/");
+	private String m_configFile = m_activeDirectory + "/Configuration.xml";
+	
+	private Engine(){
+		WriteToLog("Info","Loading Configuration");
+		
+		if(!Configuration.LoadConfiguration(m_configFile))
+		{
+			WriteToLog("Error",Configuration.Error);
+			return;
+		}
+		WriteToLog("Info","Configuration Loaded");	
+		GetMac();
+		
+	} 
+	private ScaleReader m_sr = null;
+	
+	public static Engine getInstance() 
+    { 
+		synchronized (m_lock) {
+			if (m_instance == null) 
+				m_instance = new Engine(); 
+		}
+        return m_instance; 
+    }
+	
+	public boolean InitScales()
+	{
+		try
+		{
+			ConnectionArgs connArgs = new ConnectionArgs();
+			connArgs.BaudRate = 9600;			//
+			connArgs.Com = Configuration.Com;		
+			connArgs.DataBits = 8;
+			connArgs.Dtr = false;
+			connArgs.Parity = 0;
+			connArgs.Rts = false;
+			connArgs.StopBits = 1;
+			connArgs.Type = Configuration.Com == "" || Configuration.Com.length()==0 ? ConnectionType.Tcp : ConnectionType.Serial;
+			if(Configuration.Weight == "" || Configuration.Weight.length() == 0)
+				Configuration.Weight = "0";
+			
+			m_sr = ScaleReader.Factory(ScaleHeaders.values()[Integer.parseInt(Configuration.Weight)], connArgs);			
+			m_sr.OnErrorListener = new ErrorListener() {
+
+				@Override
+				public void Error(String error) {
+					System.out.println("Error:" + error);					
+				}
+				
+				
+			};	
+			
+			m_sr.OnWeightListener =  new WeightListener() {
+				
+							@Override
+				public void Weight(WeightArgs e) {
+								if(e != null)
+								{
+									System.out.println(e.Weight);	
+									Request req = new Request();
+									req.Command = "update_weight";
+									req.MAC = GetMac();
+									if(req.MAC == null)
+									{
+										System.out.println("No mac address");
+										return;
+									}
+									req.Weight=e.Weight;
+									req.send(Configuration.Web);
+								}					
+				}
+
+			};			
+	        m_sr.Connect();	       	       
+	        
+	        
+			return m_sr != null ;
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return false;
+		}
+	}
+
+	private String GetMac() {
+		try
+		{
+			NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+
+			byte[] macB = network.getHardwareAddress();
+			String mac = new String(macB,"UTF8");
+			System.out.println(mac);
+			return mac;	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return null;
+		}
+		
+	}
+	
+	public void Process()
+	{
+		InitScales();
+		m_sr.IsRunning = true;
+		m_sr.Process();
+	}
+	
+	public void WriteToLog(String msgType, String msg)
+    {		
+		Date date = new Date();
+		SimpleDateFormat ft = 
+			      new SimpleDateFormat ("dd/MM/yyyy HH:mm:ss");	
+		String message = msgType + " - " + ft.format(date) + " - " + msg + System.lineSeparator();
+		System.out.println(message);
+    }
+}

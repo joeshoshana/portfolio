@@ -1,0 +1,182 @@
+package LPR;
+
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import LogHandler.LogListener;
+import LogHandler.LogType;
+
+public class LPR implements Closeable, Runnable {
+
+	protected ServerSocket  m_socket = null;	
+	protected LPRArgs m_args = null;
+	public  LogListener OnLog = null;
+	public  Boolean IsRunning = false;
+	public LPRListener OnReceive = null;
+	protected DataInputStream m_input = null;
+	
+	public LPR(LPRArgs args)
+	{
+		m_args = args;
+	}
+	
+	public boolean Connect()
+	{
+		try {
+       		if(m_args == null)
+       			throw new Exception("No Arguments Was Initialized");
+       		
+       		Disconnect();
+       		
+       		ValidateArgs(m_args);
+       		//TODO: send  
+       		m_socket = new ServerSocket(m_args.Port);
+       		//m_socket = new Socket(m_args.IP,m_args.Port);       		
+       		
+       		
+    		return true;
+    	}
+    	catch (Exception ex) {
+    		Log(LogType.Error,ex.getMessage());
+    		return false;
+    	}
+	}
+	
+	public void ValidateArgs(LPRArgs args) throws Exception
+	{
+		if ( args.IP == null || args.IP.trim().length() == 0)
+        {
+            throw new Exception("Missing IP");
+        }
+        else
+        {
+            if (!IsIPValid(args.IP))
+            {
+            	throw new Exception("Invalid IP");
+            }
+        }
+        if (args.Port == 0)
+        {
+        	throw new Exception("Missing Port");
+        }
+	}
+	
+	public void Process() {
+		
+		RecieveProcess();		
+	}
+	
+	protected void RecieveProcess()
+	{
+		Thread r = new Thread(() -> {
+			
+    		while(IsRunning)
+    		{
+    			try {
+    				byte[] buffer = new byte[10000000];    				
+    				Socket socket = m_socket.accept();
+    				Thread.sleep(160); 
+    				m_input = new DataInputStream(socket.getInputStream());
+    				String data = "";
+    				ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+					while(m_input.available() > 0)
+                	{
+						Thread.sleep(160);
+	            		int len = m_input.read(buffer);	 
+	            		outputStream.write( buffer,0,len );	            		
+                	}
+					data = new String(outputStream.toByteArray(),0,outputStream.toByteArray( ).length);
+					Receive(outputStream);
+					outputStream.close();
+					m_input.close();
+					socket.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+    		}
+    	});
+    	r.start();
+	}
+
+	private boolean IsIPValid(String ipString)
+    {
+        try
+        {
+            if (ipString == null || ipString.contains(" "))
+            {
+                return false;
+            }
+
+            String[] splitValues = ipString.split("\\.");
+            if (splitValues.length != 4)
+            {
+                return false;
+            }
+
+            for(int i =0; i<splitValues.length; i++ )
+            {
+	           	try
+	           	{
+	           		int val = Integer.parseInt(splitValues[i]);
+	           		if(val < 0 || val > 255)
+	           			return false;
+	           	}
+	           	catch(Exception ex)
+	           	{
+	           		return false;
+	           	}            		
+            }
+            return true;            
+        }
+        catch (Exception ex)
+        {
+            Log(LogType.Error, ex.getMessage());
+            return false;
+        }   
+    }
+	
+	public void Disconnect()
+	{
+		try {
+			if (m_socket != null)
+	         {
+				m_socket.close();
+	         }
+			m_socket = null;				
+		}
+		catch(Exception ex )
+		{
+			Log(LogType.Error,ex.getMessage());
+		}	 
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Process();  
+	}
+
+	@Override
+	public void close() throws IOException {
+		// TODO Auto-generated method stub
+		Disconnect();
+	}
+	
+	protected  void Log(LogType logType, String msg)
+	{
+		if(OnLog != null)
+			OnLog.Log(logType,msg);
+	}
+	
+	protected void Receive(ByteArrayOutputStream data)
+	{
+		if(OnReceive != null)
+			OnReceive.Receive(data);
+	}
+
+}

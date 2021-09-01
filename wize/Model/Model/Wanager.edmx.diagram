@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fa740422e0284e65b91b0fca76186feb" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="WanagerDBModel.Companies" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WanagerDBModel.Scales" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WanagerDBModel.ScalesTypes" Width="1.5" PointX="0.625" PointY="5.625" />
+        <EntityTypeShape EntityType="WanagerDBModel.CompaniesTables" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Tables" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Users" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Items" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Customers" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Suppliers" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.CompaniesForms" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Forms" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Vehicles" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Sites" Width="1.5" PointX="9.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.SuppliersContacts" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.CustomersContacts" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Silos" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Transports" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Dictionary" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.GoodsWeighing" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.GoodsWeighingLines" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Units" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.CompaniesFormsFields" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.FormsFields" Width="1.5" PointX="13.375" PointY="3.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.FormsInnerPermissions" Width="1.5" PointX="13.75" PointY="9.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Permissions" Width="1.5" PointX="13.75" PointY="12.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.PermissionsFormsInnerPermissions" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.PermissionsTablesInnerPermissions" Width="1.5" PointX="14.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.TablesInnerPermissions" Width="1.5" PointX="9.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.SilosLog" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.CompaniesSettings" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Settings" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.PermissionsSettingsInnerPermissions" Width="1.5" PointX="12.375" PointY="15.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.SettingsInnerPermissions" Width="1.5" PointX="14.375" PointY="15.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.CompaniesSystemSettings" Width="1.5" PointX="16.375" PointY="12.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Drivers" Width="1.5" PointX="16.375" PointY="9.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.Connections" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.VehiclesWeighing" Width="1.5" PointX="7.375" PointY="17.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.InnerPermissions" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.PermissionsInnerPermissions" Width="1.5" PointX="2.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.WeighingModes" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.SendingMethods" Width="1.5" PointX="9.375" PointY="17.75" />
+        <EntityTypeShape EntityType="WanagerDBModel.SystemSetting" Width="1.5" PointX="16.375" PointY="16.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

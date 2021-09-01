@@ -1,0 +1,303 @@
+﻿<a id="fileLink" href="" target="_blank"></a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-2  text-center">
+            <button id="btnNew" class="btn btn_modern">@ViewBag.Dictionary.New</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_silos_views">@ViewBag.Dictionary.SiloView</label>
+                            <select id="f_silos_views" class="form-control">
+                                <option value="1">x1</option>
+                                <option value="2">x2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 SiteName">
+                        <div class="form-group text-center text-white ">
+                            <label for="f_site_name">@ViewBag.Dictionary.SiteName</label>
+                            <input id="f_site_name" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 SiloName">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_name">@ViewBag.Dictionary.SiloName</label>
+                            <input id="f_name" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_active' checked>
+                            <label for='f_active'>@ViewBag.Dictionary.ActiveOnly</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div class="container">
+        <div class="row justify-content-center" id="silos_panel">
+            <!--<div class="m-1 silo-item" id="2">
+            <a class="card text-white" dir="rtl" style="background-color:#d64a9e">
+                <div class="text-center">
+                    <h1 class="card-title text-center h5" id="site_name_2">אתר</h1>
+                    <label class="card-title text-center form-group" id="silo_name_2">שם סילו</label>
+                    <canvas id="canvas_2" width="100" height="110"></canvas>
+                    <label class="card-title text-center form-group h5" id="silo_weight_2"></label>
+                </div>
+            </a>
+        </div>
+        <div class="m-1 silo-item" id="3">
+            <a class="card text-white" dir="rtl" style="background-color:#d64a9e">
+                <div class="text-center">
+                    <h1 class="card-title text-center h5" id="site_name_3">אתר</h1>
+                    <label class="card-title text-center form-group" id="silo_name_3">שם סילו</label>
+                    <canvas id="canvas_3" width="100" height="110"></canvas>
+                    <label class="card-title text-center form-group h5" id="silo_weight_3"></label>
+                </div>
+            </a>
+        </div>-->
+        </div>
+</div>
+
+<div class="modal fade text-white" id="current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.SiloEdit</h5>
+            </div>
+            <div class="modal-body" id="current">
+                <div class="row border rounded border-white m-1" dir="rtl">
+                    <div class="col-3">
+                        <div class="form-group text-center text-white SiteName">
+                            <label for='site_name_current'>@ViewBag.Dictionary.SiteName</label>
+                            <input type="text" class="card-title text-center form-control h5" id="site_name_current" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white SiloName">
+                            <label for='silo_name_current'>@ViewBag.Dictionary.SiloName</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_name_current" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white MaximumCapacity">
+                            <label for='silo_max_capacity_current'>@ViewBag.Dictionary.MaximumCapacity</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_max_capacity_current" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group  text-center text-white">
+                            <label for="scales">@ViewBag.Dictionary.Scales</label>
+                            <select class="form-control" id="scales"></select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='active' checked>
+                            <label for='active'>@ViewBag.Dictionary.Active</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row  border rounded border-white m-1" dir="rtl">
+                    <div class="col-3">
+                        <div class="form-group text-center text-white LoadDetection">
+                            <input type='checkbox' class='ios8-switch' id='silo_is_load_current'>
+                            <label for='silo_is_load_current'>@ViewBag.Dictionary.LoadDetection</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white LoadInterval">
+                            <label for='silo_load_interval_current'>@ViewBag.Dictionary.LoadInterval</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_load_interval_current" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group text-center text-white LoadIntervalTime">
+                            <label for='silo_load_interval_time_current'>@ViewBag.Dictionary.LoadIntervalTime</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_load_interval_time_current" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row  border rounded border-white m-1" dir="rtl">
+                    <div class="col-3">
+                        <div class="form-group text-center text-white UnloadDetection">
+                            <input type='checkbox' class='ios8-switch' id='silo_is_unload_current'>
+                            <label for='silo_is_unload_current'>@ViewBag.Dictionary.UnloadDetection</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white UnloadInterval">
+                            <label for='silo_unload_interval_current'>@ViewBag.Dictionary.UnloadInterval</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_unload_interval_current" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group text-center text-white UnloadIntervalTime">
+                            <label for='silo_unload_interval_time_current'>@ViewBag.Dictionary.UnloadIntervalTime</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_unload_interval_time_current" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row border rounded border-white m-1" dir="rtl">
+                    <div class="col-3">
+                        <div class="form-group text-center text-white UnloadDetection">
+                            <input type='checkbox' class='ios8-switch' id='silo_is_log_weight_current'>
+                            <label for='silo_is_log_weight_current'>@ViewBag.Dictionary.LogWeight</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group text-center text-white UnloadInterval">
+                            <label for='silo_log_weight_time_current'>@ViewBag.Dictionary.LogWeightTime</label>
+                            <input type="text" class="card-title text-center form-control" id="silo_log_weight_time_current" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                   <h5>@ViewBag.Dictionary.LogWeight</h5>
+                    <div class="row justify-content-center" dir="rtl">
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="f_from_log_date">@ViewBag.Dictionary.FromDate</label>
+                                <input id="f_from_log_date" class="form-control" type="text" />
+                            </div>
+                        </div>
+
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="f_to_log_date">@ViewBag.Dictionary.ToDate</label>
+                                <input id="f_to_log_date" class="form-control" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group text-center text-white">
+                                <button id="btnLog" class="form-control sh_layout_dark sh_shadow_bottom_right ">@ViewBag.Dictionary.Download</button>
+                            </div>
+                        </div>
+                    </div>
+                        <!--                <div class=" row justify-content-center">
+                <div class="m-1 silo-item text-white align-items-center" dir="rtl">
+                    <div class="text-center">
+                        <div class="col-3">
+                            <div class="form-group text-center text-white SiteName">
+                                <label for='site_name_current'>@ViewBag.Dictionary.SiteName</label>
+                                <input type="text" class="card-title text-center form-control h5" id="site_name_current" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center text-white SiloName">
+                                <label for='silo_name_current'>@ViewBag.Dictionary.SiloName</label>
+                                <input type="text" class="card-title text-center form-control" id="silo_name_current" />
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-9">
+                                <div class="form-group text-center text-white MaximumCapacity">
+                                    <label for='silo_max_capacity_current'>@ViewBag.Dictionary.MaximumCapacity</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_max_capacity_current" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group text-center text-white Unit">
+                                    <label for='units'>@ViewBag.Dictionary.Unit</label>
+                                    <select class="form-control" id="units"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group  text-center text-white">
+                                <label for="scales">@ViewBag.Dictionary.Scales</label>
+                                <select class="form-control" id="scales"></select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-3">
+                                <div class="form-group text-center text-white LoadDetection">
+                                    <input type='checkbox' class='ios8-switch' id='silo_is_load_current'>
+                                    <label for='silo_is_load_current'>@ViewBag.Dictionary.LoadDetection</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group text-center text-white LoadInterval">
+                                    <label for='silo_load_interval_current'>@ViewBag.Dictionary.LoadInterval</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_load_interval_current" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group text-center text-white LoadIntervalTime">
+                                    <label for='silo_load_interval_time_current'>@ViewBag.Dictionary.LoadIntervalTime</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_load_interval_time_current" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-3">
+                                <div class="form-group text-center text-white UnloadDetection">
+                                    <input type='checkbox' class='ios8-switch' id='silo_is_unload_current'>
+                                    <label for='silo_is_unload_current'>@ViewBag.Dictionary.UnloadDetection</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group text-center text-white UnloadInterval">
+                                    <label for='silo_unload_interval_current'>@ViewBag.Dictionary.UnloadInterval</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_unload_interval_current" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group text-center text-white UnloadIntervalTime">
+                                    <label for='silo_unload_interval_time_current'>@ViewBag.Dictionary.UnloadIntervalTime</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_unload_interval_time_current" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-3">
+                                <div class="form-group text-center text-white UnloadDetection">
+                                    <input type='checkbox' class='ios8-switch' id='silo_is_log_weight_current'>
+                                    <label for='silo_is_log_weight_current'>@ViewBag.Dictionary.LogWeight</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group text-center text-white UnloadInterval">
+                                    <label for='silo_log_weight_time_current'>@ViewBag.Dictionary.LogWeightTime</label>
+                                    <input type="text" class="card-title text-center form-control" id="silo_log_weight_time_current" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group text-center text-white">
+                                    <input type='checkbox' class='ios8-switch' id='active' checked>
+                                    <label for='active'>@ViewBag.Dictionary.Active</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+                    </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-decline" data-dismiss="modal">&#10005;</button>
+                <button type="button" id="btnSave" class="btn btn-accept">&#10003;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/ViewScripts/Scales/Weight.js")
+@Scripts.Render("~/Scripts/ViewScripts/SiloWeighing/Silo.js")
+@Scripts.Render("~/Scripts/ViewScripts/SiloWeighing/Index.js")

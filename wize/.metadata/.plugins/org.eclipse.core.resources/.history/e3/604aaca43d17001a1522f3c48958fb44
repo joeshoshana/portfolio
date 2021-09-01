@@ -1,0 +1,131 @@
+package Wize;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.border.BevelBorder;
+
+public class WeightDisplay extends JFrame {
+
+	private JPanel contentPane;
+	public  JLabel lblWeight = new JLabel("- - -");
+	public  JLabel lblError = new JLabel("");
+	public  JLabel lblOK = new JLabel("");
+	public  JLabel lblMessage = new JLabel("");
+	public JLabel lblData = new JLabel("");	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					WeightDisplay frame = new WeightDisplay();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	 public void ChangeBackground(Color c)
+	 {
+		 contentPane.setBackground(c);	
+		 Timer t = new Timer(5000, new ActionListener() {
+
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	contentPane.setBackground(Color.BLUE);
+	            }
+	        });
+	        t.setRepeats(false);
+	        t.start();
+	 }
+	  
+	/**
+	 * Create the frame.
+	 */
+	public WeightDisplay() {
+		setBackground(Color.BLUE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
+		//setBounds(100, 100, 968, 595);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		lblWeight = new JLabel("- - -");
+		lblWeight.setForeground(new Color(255, 255, 255));
+		lblWeight.setFont(new Font("Times New Roman", Font.BOLD, 72));
+		lblWeight.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWeight.setBounds(10, 125, (int)screenSize.getWidth(), 253);
+		contentPane.add(lblWeight);
+		
+		lblMessage = new JLabel("");
+		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 35));
+		lblMessage.setForeground(new Color(255, 255, 255));
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessage.setBounds(10, 720, (int)screenSize.getWidth(), 156);
+		contentPane.add(lblMessage);
+		
+		lblData = new JLabel("");
+		lblData.setForeground(Color.WHITE);
+		lblData.setFont(new Font("Times New Roman", Font.BOLD, 48));
+		lblData.setHorizontalAlignment(SwingConstants.CENTER);
+		lblData.setBounds(10, 613, 2541, 123);
+		contentPane.add(lblData);
+	}
+	
+	public void setMessage(String msg, boolean activateTimer)
+	{
+		lblMessage.setText(msg);
+		if(activateTimer)
+		{
+			Timer t = new Timer(5000, new ActionListener() {
+
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	lblMessage.setText(null);
+	            }
+	        });
+	        t.setRepeats(false);
+	        t.start();
+		}	
+	}
+	
+	public void setData(String dt, boolean activateTimer)
+	{
+		lblData.setText(dt);
+		if(activateTimer)
+		{
+			Timer t = new Timer(5000, new ActionListener() {
+
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	lblData.setText(null);
+	            }
+	        });
+	        t.setRepeats(false);
+	        t.start();
+		}	
+	}
+}

@@ -1,0 +1,114 @@
+package Wize;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+import org.junit.jupiter.engine.discovery.predicates.IsPotentialTestContainer;
+
+import Siemens.SiemensCommands;
+
+public class Binyamina extends Engine {
+	private Boolean IsFirstUp = false;
+	private Boolean IsSecondUp = false;
+	public Binyamina(){
+		super();
+	}
+	
+	
+	public void Start()
+	{
+		try
+		{
+			super.Start();
+			
+			while(IsRunning)
+			{
+				if(IsSiemens)
+				{
+					switch(SiemensData)
+					{
+					case "I001":
+						IsFirstUp = true;
+						break;
+					case "I000":
+						IsFirstUp = false;
+						break;
+					case "I011":
+						IsSecondUp = true;
+						break;
+					case "I010":
+						IsSecondUp = false;
+						break;
+					}
+					IsSiemens = false;
+				}
+				
+				//WriteToLog("Info", WeightData);
+				if(IsWeight)
+					super.sendWeight(WeightData);
+				
+				/*if(!IsFirstUp || IsSecondUp)
+					IsTag = false;*/ 	
+				
+				WriteToLog("Info", IsFirstUp.toString());
+				WriteToLog("Info", IsSecondUp.toString());
+				WriteToLog("Info", IsTag.toString());
+				/*if(IsFirstUp && !IsSecondUp && IsWeight)
+				{*/
+					if(IsTag)
+					{						
+						WriteToLog("Error", "all data received");
+						super.sendTag(TagData);
+						WriteToLog("Error", "tag sent");
+						IsFirstUp = false;
+						IsSecondUp = false;
+						IsTag = false;	
+					}
+				//}
+				
+				//IsWeight = false;
+			}	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+	
+	public void Acknowledge(String data)
+	{
+		WriteToLog("Info", data);
+		
+		super.Acknowledge(data);
+		Response r = Response.fromJson(data);
+		if(r != null) {
+			if(Display() && !r.isSucceded)
+			{
+				disp.setMessage(r.msg ,true);
+				disp.ChangeBackground(Color.red);							
+			}
+			else if(m_siemens != null && r.isSucceded)
+			{			
+					m_siemens.Send(SiemensCommands.Q031);
+												
+					Timer t = new Timer(5000, new ActionListener() {
+
+			            @Override
+			            public void actionPerformed(ActionEvent e) {
+			            	m_siemens.Send(SiemensCommands.Q030);
+			            }
+			        });
+			        t.setRepeats(false);
+			        t.start();						
+			}
+		}
+		else
+			System.out.println(data);
+	}
+
+}
+

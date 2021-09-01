@@ -1,0 +1,99 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-2 text-center">
+            <button id="btnBack" data-toggle="tooltip" title="אחורה" class="btn btn_modern">@ViewBag.Dictionary.Back</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row p-3" dir="rtl">
+                    <div class="col-3 offset-1 form-group">
+                        <div class="row justify-content-center text-white">
+                            <label for="f_from_out_date">מתאריך</label>
+                        </div>
+                        <input class="form-control" type="text" id="f_from_out_date" />
+                    </div>
+                    <div class="col-3 offset-1 form-group">
+                        <div class="row justify-content-center text-white">
+                            <label for="f_to_out_date">עד לתאריך</label>
+                        </div>
+                        <input class="form-control" type="text" id="f_to_out_date" />
+                    </div>
+                    <div class="col-3 offset-1 CustomerName form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_customers" class="float-right">@ViewBag.Dictionary.CustomerName</label>
+                            <select id="f_customers" class="form-control" multiple></select>
+                        </div>
+                    </div> 
+                    <div class="col-3 offset-1 ItemName form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_items" class="float-right">@ViewBag.Dictionary.ItemName</label>
+                            <select id="f_items" class="form-control" multiple></select>
+                        </div>
+                    </div>  
+                    <div class="col-3 offset-1 LicenseNumber form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_vehicles" class="float-right">@ViewBag.Dictionary.LicenseNumber</label>
+                            <select id="f_vehicles" class="form-control" multiple></select>
+                        </div>
+                    </div>                   
+                    <div class="col-3 offset-1 TransportName form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_transports" class="float-right">@ViewBag.Dictionary.TransportName</label>
+                            <select id="f_transports" class="form-control" multiple></select>
+                        </div>
+                    </div> 
+                    <div class="col-3 offset-1 DriverName form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_drivers" class="float-right">@ViewBag.Dictionary.DriverName</label>
+                            <select id="f_drivers" class="form-control" multiple></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 SourceSite form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_insites" class="float-right">@ViewBag.Dictionary.SourceSite</label>
+                            <select id="f_insites" class="form-control" multiple></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1 DestinationSite form-group">
+                        <div class="row justify-content-center text-center text-white">
+                            <label for="f_outsites" class="float-right">@ViewBag.Dictionary.DestinationSite</label>
+                            <select id="f_outsites" class="form-control" multiple></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_is_cancelled'>
+                            <label for='f_is_cancelled'>@ViewBag.Dictionary.CancelledOnly</label>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <button id="btnEvacuation" class="col-3 btn btn_modern  text-center m-1">
+            @ViewBag.Dictionary.EvacuationReport
+        </button>
+        <button id="btnWeights" class="col-3 btn btn_modern  text-center m-1">
+            @ViewBag.Dictionary.WeightsReport
+        </button>        
+    </div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+@Scripts.Render("~/Scripts/ViewScripts/VehiclesWeighing/Reports.js")
+@Scripts.Render("~/Scripts/ViewScripts/VehiclesWeighing/evacuationReport.js")
+
+

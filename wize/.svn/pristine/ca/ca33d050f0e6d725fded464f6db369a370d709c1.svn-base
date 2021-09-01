@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>WIZE - Weight made easy</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        
+        @Styles.Render("~/Content/datatables/datatables.css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/moment.js"></script>
+        @Scripts.Render("~/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/addons")
+        @Styles.Render("~/Content/css")
+        <script src="~/Scripts/jquery.cookie.js"></script>
+        <script src="~/Scripts/ViewScripts/Shared/site.js"></script>
+        <script src="~/Scripts/ViewScripts/Shared/figma.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </head>
+    <body>
+        <nav class="main_panel">
+            
+            <div class="main_panel_title">
+                <a class="text-white">
+                    <div>
+                        <img height="30" class="system_logo" alt="">
+                        <span>WIZE</span>
+                    </div>
+                </a>
+            </div>
+            <a href="@Url.Action("Disconnect","Home",null)" id="disconnect" class="main_panel_footer text-white">
+                <img height="30" src="~/Images/power.png" alt="">
+                <span>@ViewBag.Dictionary.Disconnected</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_panel_list" aria-controls="main_panel_list" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="main_panel_list_toggler"></span>
+            </button>
+            <div class="collapse navbar-collapse main_panel_list" id="main_panel_list">
+                @if (@ViewBag.IsOwner)
+                {
+
+                    <a class="main_panel_item scales" href="/Scales/Index">
+                        <img height="30" src="~/Images/scales.png" alt="">
+                        <span>@ViewBag.Dictionary.Scales</span>
+                    </a>
+                    <a class="main_panel_item companies" href="/Companies/Index">
+                        <img height="30" src="~/Images/company.png" alt="">
+                        <span>@ViewBag.Dictionary.Companies</span>
+                    </a>
+                    <a class="main_panel_item system_settings" href="/SystemSettings/Index">
+                        <img height="30" src="~/Images/settings.png" alt="">
+                        <span>@ViewBag.Dictionary.SystemSettings</span>
+                    </a>
+
+                }
+                else
+                {
+                    <div class="dropdown_wrapper">
+                        <a class="main_panel_item  dropdown_toggle settings" href="#" id="configurations">
+                            <img height="30" src="~/Images/settings.png" alt="">
+                            <span>@ViewBag.Dictionary.Settings</span>
+                        </a>
+                        <div class="dropdown_list" id="company_settings" aria-labelledby="configurations">
+
+                        </div>
+                    </div>
+                    <div class="dropdown_wrapper">
+                        <a class="main_panel_item tables dropdown_toggle" href="#" id="tables">
+                            <img height="30" src="~/Images/table.png" alt="">
+                            <span>@ViewBag.Dictionary.Tables</span>
+                        </a>
+                        <div class="dropdown_list" id="company_tables" aria-labelledby="tables">
+
+                        </div>
+                    </div>
+                    <div class="dropdown_wrapper">
+                        <a class="main_panel_item forms dropdown_toggle" href="#" id="tables">
+                            <img height="30" src="~/Images/forms.png" alt="">
+                            <span>@ViewBag.Dictionary.Forms</span>
+                        </a>
+                        <div class="dropdown_list" id="company_forms" aria-labelledby="forms">
+
+                        </div>
+                    </div>
+                }
+
+                    </div>
+
+
+
+            <div class="text-white">
+                
+            </div>
+                 @*<ul class="main_panel_list">
+                    @if (@ViewBag.IsOwner)
+            {
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/Scales/Index">
+                        <img height="30" src="~/Images/scales.png" alt="">
+                        <span>@ViewBag.Dictionary.Scales</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/Companies/Index">
+                        <img height="30" src="~/Images/company.png" alt="">
+                        <span>@ViewBag.Dictionary.Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/SystemSettings/Index">
+                        <img height="30" src="~/Images/settings.png" alt="">
+                        <span>@ViewBag.Dictionary.SystemSettings</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="configurations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img height="30" src="~/Images/settings.png" alt="">
+                        <span>@ViewBag.Dictionary.Settings</span>
+                    </a>
+                    <div class="dropdown-menu" id="company_settings" aria-labelledby="configurations">
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img height="30" src="~/Images/table.png" alt="">
+                        <span>@ViewBag.Dictionary.Tables</span>
+                    </a>
+                    <div class="dropdown-menu" id="company_tables" aria-labelledby="tables">
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img height="30" src="~/Images/forms.png" alt="">
+                        <span>@ViewBag.Dictionary.Forms</span>
+                    </a>
+                    <div class="dropdown-menu" id="company_forms" aria-labelledby="forms">
+
+                    </div>
+                </li>
+            }
+
+            <!--<li class="nav-item active">
+        <a class="nav-link text-white" href="/Scales/Index/">@ViewBag.Dictionary.Scales<span class="sr-only">(current)</span></a>
+    </li>-->
+        </ul>*@
+           
+</nav>
+        @RenderSection("featured", required: false)
+        @RenderBody()      
+        @*<nav class="navbar navbar-expand-lg navbar-default fixed-top">
+        <a class="navbar-brand" href="/Home/Index">
+            <img height="30" class="d-inline-block align-top system_logo" alt="">
+        </a>
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">≡</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @if (@ViewBag.IsOwner)
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="/Scales/Index">@ViewBag.Dictionary.Scales</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="/Companies/Index">@ViewBag.Dictionary.Companies</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="/SystemSettings/Index">@ViewBag.Dictionary.SystemSettings</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="configurations" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.Dictionary.Settings
+                        </a>
+                        <div class="dropdown-menu" id="company_settings" aria-labelledby="configurations">
+
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.Dictionary.Tables
+                        </a>
+                        <div class="dropdown-menu" id="company_tables" aria-labelledby="tables">
+
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="tables" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.Dictionary.Forms
+                        </a>
+                        <div class="dropdown-menu" id="company_forms" aria-labelledby="forms">
+
+                        </div>
+                    </li>
+                }
+
+                <!--<li class="nav-item active">
+                    <a class="nav-link text-white" href="/Scales/Index/">@ViewBag.Dictionary.Scales<span class="sr-only">(current)</span></a>
+                </li>-->
+
+            </ul>
+
+            <div class="form-group">
+                <a id="greeting" class="text-white"></a>
+                <a href="@Url.Action("Disconnect","Home",null)" id="disconnect" class="text-white">@ViewBag.Dictionary.Disconnected</a>
+            </div>
+
+
+        </div>
+    </nav>
+    <div id="body">
+        @RenderSection("featured", required: false)
+            @RenderBody()
+    </div>
+    <!--<footer dir="ltr">
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Shkila ltd.</p>
+            </div>
+        </div>
+    </footer>-->
+        *@
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

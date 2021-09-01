@@ -1,0 +1,15 @@
+﻿<div class="container">    
+    @*<div class="row">
+        <a class="card text-white" dir="rtl" style="background-color:#d64a9e" href="@Url.Action("Index", "Scales")">
+            <img class="card-img-top" src="~/Images/scales.png" style="width:80px;" alt="Card image cap">
+            <div class="card-body">
+                <h1 class="card-title text-center">מאזניים</h1>
+
+                <p class="card-text text-center">בדיקת מאזניים, הפעלת/כיבוי מאזניים</p>
+            </div>
+        </a>
+    </div>            *@
+</div>
+
+
+@Scripts.Render("~/Scripts/ViewScripts/Home/Index.js")

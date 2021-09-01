@@ -1,0 +1,645 @@
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import LogHandler.LogListener;
+import LogHandler.LogType;
+import ScaleReaders.ConnectionArgs;
+import ScaleReaders.ConnectionType;
+import ScaleReaders.ErrorListener;
+import ScaleReaders.ScaleHeaders;
+import ScaleReaders.ScaleReader;
+import ScaleReaders.WeightArgs;
+import ScaleReaders.WeightListener;
+import Siemens.ReceiveListener;
+import Siemens.Siemens;
+import Siemens.SiemensArgs;
+import Tags.TagArgs;
+import Tags.TagListener;
+import Tags.TagModules;
+import Tags.TagReader;
+
+public class Engine {
+	private static Engine m_instance = null; 
+	private static Object m_lock = new Object();
+	private static String m_activeDirectory = "file:///" + System.getProperty("user.dir").replace("\\", "/");
+	private static String m_configFile = m_activeDirectory + "/Configuration.xml";
+	protected Boolean IsDemo = false;
+	protected Boolean toggle = false;
+	protected String m_mac = null;
+	protected ScaleReader m_sr = null;
+	protected Siemens m_siemens = null;
+	protected TagReader m_tr = null;
+	protected Boolean IsRunning = false;
+	protected Boolean IsTag = false;
+	protected String TagData = "";
+	protected Boolean IsSiemens = false;
+	protected String SiemensData = "";
+	protected Boolean IsWeight = false;
+	protected String WeightData = "";
+	protected WeightDisplay disp = null;
+	protected Engine(){
+		m_mac = getMacRaspberry(); //getMac();	
+	} 
+	
+	private static Engine Factory(WizeModules type)
+	{
+		switch(type)
+		{
+		case OrAkivaBridge:
+			return new OrAkivaBridge();
+		case Normal:
+			return new Normal();
+		case Silo:
+			return null;
+		default:
+			return null;
+		}
+	}
+	
+	public static Engine getInstance(WizeModules type) 
+    { 
+		synchronized (m_lock) {
+			if (m_instance == null) 
+				m_instance = Engine.Factory(type); 
+		}
+        return m_instance; 
+    }
+	
+	public static Boolean loadConfig() {
+		WriteToLog("Info","Loading Configuration");
+		
+		if(!Configuration.LoadConfiguration(m_configFile))
+		{
+			WriteToLog("Error",Configuration.Error);
+			return false;
+		}
+		WriteToLog("Info","Configuration Loaded");
+		return true;
+	}
+	
+	public boolean initTag()
+	{
+		try
+		{
+			TagArgs args = new TagArgs();
+			args.Com = Configuration.TagCom;
+			args.BaudRate = 9600;			//		
+			args.DataBits = 8;
+			args.Dtr = false;
+			args.Parity = 0;
+			args.Rts = false;
+			args.StopBits = 1;
+			args.Module = TagModules.valueOf(Configuration.TagModule);
+			m_tr = new TagReader(args);
+			if(m_tr == null)
+				throw new Exception("Invalid TagReader");
+			
+			m_tr.OnLog = new LogListener() {
+				@Override
+				public void Log(LogType logType, String msg) {
+					WriteToLog(logType.name(), msg); 
+				}
+			};
+			
+			m_tr.OnTag = new TagListener() {
+				@Override
+				public void Tag(String data,Boolean toProcess) {
+					try
+					{
+						if(!toProcess)
+						{
+							if(Display())
+								disp.lblMessage.setText(data);
+							WriteToLog("Info", data);
+						}
+							
+						
+						if(data != null && data.length() > 0 && toProcess)
+						{							
+							System.out.println(data);
+							TagData = data;
+							IsTag = true;
+							/*sendTag*/
+						}					
+					}
+					catch( Exception ex)
+					{
+						ex.printStackTrace();
+					}
+				}
+			};
+			return m_tr.Connect();
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			return false;
+		}
+	}
+	
+	
+	public boolean initSiemens()
+	{
+		try
+		{
+			SiemensArgs args = new SiemensArgs();
+			args.IP = Configuration.SiemensIP;
+			Integer port = 0;
+			try {  
+				port = Integer.parseInt(Configuration.SiemensPort);    
+		      } catch (NumberFormatException e) {  
+		         throw e;
+		      } 
+			args.Port = port;
+			m_siemens = new Siemens(args);
+			
+			m_siemens.OnReceive = new ReceiveListener() {
+
+				@Override
+				public void Receive(String data) {
+					WriteToLog("Info", data);
+					SiemensData = data;
+					IsSiemens = true;
+				/*	switch(data)
+					{
+					case "I001":
+						m_siemens.Send(SiemensCommands.Q001);
+						break;
+					case "I000":
+						m_siemens.Send(SiemensCommands.Q000);
+						break;
+					case "I011":
+						m_siemens.Send(SiemensCommands.Q011);
+						break;
+					case "I010":
+						m_siemens.Send(SiemensCommands.Q010);
+						break;
+					}*/
+					
+				}
+			};
+			
+			m_siemens.OnLog = new LogListener() {
+
+				@Override
+				public void Log(LogType logType, String msg) {
+					WriteToLog(logType.name(), msg); 
+				}
+			};
+			return m_siemens.Connect();
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean initScale()
+	{
+		try
+		{
+			ConnectionArgs connArgs = new ConnectionArgs();
+			connArgs.BaudRate = 9600;			//
+			connArgs.Com = Configuration.Com;		
+			connArgs.DataBits = 8;
+			connArgs.Dtr = false;
+			connArgs.Parity = 0;
+			connArgs.Rts = false;
+			connArgs.StopBits = 1;
+			connArgs.Type = Configuration.Com == "" || Configuration.Com.length()==0 ? ConnectionType.Tcp : ConnectionType.Serial;
+			
+			
+			m_sr = ScaleReader.Factory(ScaleHeaders.valueOf(Configuration.Scale), connArgs);
+			//m_sr = ScaleReader.Factory(ScaleHeaders.Test, connArgs);
+			m_sr.OnErrorListener = new ErrorListener() {
+
+				@Override
+				public void Error(String error) {
+					System.out.println("Error:" + error);					
+				}
+			};	
+			
+			m_sr.OnWeightListener =  new WeightListener() {
+				
+							@Override
+				public void Weight(WeightArgs e) {
+								try
+								{
+									if(e != null)
+									{
+										WeightData = e.Weight;
+											
+										IsWeight = true;
+										/*sendWeight*/
+									}						
+								}
+								catch( Exception ex)
+								{
+									ex.printStackTrace();
+								}
+							}
+			};			
+	        m_sr.Connect();	       	       
+	        	        
+			return m_sr != null ;
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return false;
+		}
+	}
+
+	protected void sendTag(String data)
+	{
+		try {
+			Request req = new Request();
+			req.OnResponse = new ResponseListener() {
+				
+				@Override
+				public void Reponse(String data) {
+					try
+					{
+						Response r = Response.fromJson(data);
+						if(Display() && !r.isSucceded)
+						{
+							disp.lblMessage.setText(r.msg);
+							disp.ChangeBackground(Color.red);;
+						}
+						else if(Display() && r.isSucceded)
+						{
+							disp.lblMessage.setText("");
+							disp.ChangeBackground(Color.green);;
+						}
+						System.out.println(data);	
+					}
+					catch(Exception ex)
+					{
+						if(Display())
+							disp.lblMessage.setText(ex.getMessage());
+						System.out.println(ex.getMessage());	
+					}		
+				}
+			};
+			req.Command = "vehicle_weight_modify";
+			if(IsDemo)
+			{
+				toggle = !toggle;
+				
+				req.MAC = (toggle)?"1":"demo";
+			}
+			else
+				req.MAC = m_mac;
+			
+			if(req.MAC == null)
+			{
+				System.out.println("No mac address");
+				return;
+			}
+			
+			if(IsDemo)
+			{
+				req.Tag= "000001";
+			}
+			else
+				req.Tag= data;
+			
+			req.send(Configuration.Web);	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+	
+	protected void sendWeight(String data)
+	{
+		try {
+			Request req = new Request();
+			
+			req.OnResponse = new ResponseListener() {
+				
+				@Override
+				public void Reponse(String data) {
+					try
+					{
+						Response r = Response.fromJson(data);
+						if(Display() && !r.isSucceded)
+						{
+							disp.lblMessage.setText(r.msg);
+							
+						}
+						else if(Display() && r.isSucceded)
+						{
+							disp.lblMessage.setText("");
+						}
+						System.out.println(data);	
+					}
+					catch(Exception ex)
+					{
+						if(Display())
+							disp.lblMessage.setText(ex.getMessage());
+						System.out.println(ex.getMessage());	
+					}
+				}
+			};
+			
+			req.Command = "update_weight";
+			if(IsDemo)
+			{
+				toggle = !toggle;
+				
+				req.MAC = (toggle)?"1":"demo";
+			}
+			else
+				req.MAC = m_mac;
+			if(req.MAC == null)
+			{
+				System.out.println("No mac address");
+				return;
+			}
+			if(IsDemo)
+			{
+				req.Weight = (toggle)?"15.32":"2258";
+			}
+			else
+				req.Weight=data;
+			
+			if(Display())
+				disp.lblWeight.setText(data);
+			
+			req.send(Configuration.Web);	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error", ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	private String getMac() {
+		try
+		{
+			
+			String command = "wmic csproduct get UUID";
+
+	        Process proc = Runtime.getRuntime().exec(command);
+
+	        // Read the output
+
+	        BufferedReader reader =  
+	              new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+	        String mac = "";
+	        String line = "";
+	        while((line = reader.readLine()) != null) {
+	        	if(line.toLowerCase().contains("uuid"))
+	        		{
+	        			line = reader.readLine();
+	        			line = reader.readLine();
+	        			mac = line.replaceAll("\\s+","");
+	        			System.out.print(mac + "\n");
+	        		}
+	        }
+
+	        proc.waitFor(); 
+						
+			System.out.println(mac);
+			return mac;	
+
+			/*NetworkInterface network = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+
+			byte[] macB = network.getHardwareAddress();
+			 StringBuilder sb = new StringBuilder(18);
+			    for (byte b : macB) {
+			        if (sb.length() > 0)
+			            sb.append(':');
+			        sb.append(String.format("%02x", b));
+			    }
+			String mac = sb.toString();;
+			System.out.println(mac);
+			return mac;	*/
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return null;
+		}
+		
+	}
+	
+	private String getMacRaspberry() {
+		try
+		{
+			String command = "cat /proc/cpuinfo";
+
+	        Process proc = Runtime.getRuntime().exec(command);
+
+	        // Read the output
+
+	        BufferedReader reader =  
+	              new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+	        String mac = "";
+	        String line = "";
+	        while((line = reader.readLine()) != null) {
+	        	if(line.toLowerCase().contains("serial"))
+	        		{
+	        			mac = line.split(":")[1].trim();
+	        			System.out.print(mac + "\n");
+	        		}
+	        }
+
+	        proc.waitFor(); 
+						
+			System.out.println(mac);
+			return mac;	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return null;
+		}
+		
+	}
+
+	private boolean IsPing() {
+		try
+		{
+			InetAddress geek = InetAddress.getByName("8.8.8.8"); 
+		    System.out.println("Sending Ping Request to 8.8.8.8" ); 
+		    if (geek.isReachable(5000)) 
+		      System.out.println("Host is reachable"); 
+		    else
+		      System.out.println("Sorry ! We can't reach to this host");		
+        		
+	        }
+
+						
+			return true;	
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+			return false;
+		}
+		
+	}
+
+	private void Reboot() {
+		try
+		{
+			String command = "Reboot";
+
+	        Process proc = Runtime.getRuntime().exec(command);
+		}
+		catch(Exception ex)
+		{
+			WriteToLog("Error",ex.getMessage());
+		}
+		
+	}
+	
+	public void Start()
+	{
+		
+		IsRunning = true;
+		int resetTime = 0;
+		if(Configuration.ResetTime.length() > 0)
+		{
+			resetTime = Integer.parseInt(Configuration.ResetTime);
+			 TimerTask repeatedTask = new TimerTask() {
+			        public void run() {
+			            if(!IsPing())
+			            {
+			            	WriteToLog("Info","Rebooting");
+			            	Reboot();
+			            }
+			            	
+			        }
+			    };
+			    Timer timer = new Timer("Timer");
+			     
+			    long delay  = 1000L;
+			    long period = resetTime * 60 * 1000;
+			    timer.scheduleAtFixedRate(repeatedTask, delay, period);
+		}
+		
+		
+		WizeModules type = WizeModules.valueOf(Configuration.Module);
+		if(type == WizeModules.OrAkivaBridge || type == WizeModules.Normal)
+		{
+			Thread sr = new Thread(() -> {
+			if(Configuration.Scale.length() > 0)
+			{
+				initScale();
+				m_sr.IsRunning = IsRunning;
+				m_sr.Process();	
+			}	
+			});
+			sr.start();		
+		}
+	
+		if(type == WizeModules.OrAkivaBridge)
+		{
+			Thread tr = new Thread(() -> {
+				initTag();
+				m_tr.IsRunning = IsRunning;
+				m_tr.Process();	
+			});
+			tr.start();
+		}
+		
+		if(type == WizeModules.OrAkivaBridge)
+		{
+			Thread s = new Thread(() -> {
+				initSiemens();
+				m_siemens.IsRunning = IsRunning;
+				m_siemens.Process();
+			});
+			s.start();
+		}
+		
+		if(Display())
+		{
+			disp = new WeightDisplay();		
+			disp.setVisible(true);
+		}	
+	}
+	
+	public void Stop()
+	{
+		IsRunning = true;
+	
+		WizeModules type = WizeModules.valueOf(Configuration.Module);
+		if(type == WizeModules.OrAkivaBridge || type == WizeModules.Normal)
+		{
+			Thread sr = new Thread(() -> {
+				if(Configuration.Scale.length() > 0)
+				{
+					m_sr.IsRunning = IsRunning;
+					m_sr.Disconnect();
+					m_sr = null;
+				}	
+				});
+				sr.start();		
+			}
+	
+		if(type == WizeModules.OrAkivaBridge)
+		{
+			Thread tr = new Thread(() -> {
+				m_tr.IsRunning = IsRunning;
+				m_tr.Disconnect();
+				m_tr = null;
+		});
+			tr.start();
+		}
+		
+		if(type == WizeModules.OrAkivaBridge)
+		{
+			Thread s = new Thread(() -> {
+				m_siemens.IsRunning = IsRunning;
+				m_siemens.Disconnect();
+				m_siemens = null;
+			});
+			s.start();
+		}
+		
+		if(Display())
+		{		
+			disp.setVisible(false);
+			disp.dispose();
+		}
+	}
+	
+	public static void WriteToLog(String msgType, String msg)
+    {		
+		Date date = new Date();
+		SimpleDateFormat ft = 
+			      new SimpleDateFormat ("dd/MM/yyyy HH:mm:ss");	
+		String message = msgType + " - " + ft.format(date) + " - " + msg + System.lineSeparator();
+		System.out.println(message);
+    }
+	
+	public boolean Display()
+	{
+		if(Configuration.Display.length() > 0)
+		{
+			boolean val = Boolean.parseBoolean(Configuration.Display);
+			return val;
+		}
+		return false;
+	}
+
+}

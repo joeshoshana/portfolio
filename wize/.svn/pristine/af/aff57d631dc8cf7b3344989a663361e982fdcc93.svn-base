@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = @ViewBag.Dictionary.SystemConnection;
+}
+
+<div class="container-fluid">
+    <div class="login text-center align-middle col-4">
+        @*<img src="~/Images/logo.ico" />*@
+        <h2 class="text-white">@ViewBag.Title</h2>
+        <form id="loginForm" dir="@ViewBag.Direction">
+            <div class="form-group">
+                <input id="username" class="form-control" type="text" placeholder="@ViewBag.Dictionary.Username" />
+            </div>
+            <div class="form-group">
+                <input id="password" class="form-control" type="password" placeholder="@ViewBag.Dictionary.Password" />
+            </div>
+            <div class="form-group">
+                <input id="company" class="form-control" type="text" placeholder="@ViewBag.Dictionary.CompanyName" />
+            </div>
+            @*<div class="form-group text-center">
+                <div class="g-recaptcha text-center" data-sitekey="6LfJ4cAUAAAAAJ_SLQDCUDWEdpoBy9M-xFEgYZHB"></div>
+            </div>*@
+            <div class="form-group">
+                <input class="btn btn-primary" type="button" value="@ViewBag.Dictionary.Connect" onclick="Enter()" />
+            </div>
+        </form>
+    </div>
+    
+    <img class="main_img" src="~/Images/mainimage.png" />
+</div>
+
+@Scripts.Render("~/Scripts/ViewScripts/Login/Login.js")

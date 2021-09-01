@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WanagerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="sp_GetCompanies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AllowedRows" Type="bigint" Mode="In" />
+          <Parameter Name="GUID" Type="bigint" Mode="In" />
+          <Parameter Name="NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="OwnerID" Type="bigint" Mode="In" />
+          <Parameter Name="ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsOwner" Type="bit" Mode="In" />
+          <Parameter Name="Active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_GetScales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AllowedRows" Type="bigint" Mode="In" />
+          <Parameter Name="GUID" Type="bigint" Mode="In" />
+          <Parameter Name="CompanyID" Type="bigint" Mode="In" />
+          <Parameter Name="OwnerID" Type="bigint" Mode="In" />
+          <Parameter Name="NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MAC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ScalesTypeID" Type="bigint" Mode="In" />
+          <Parameter Name="Status" Type="bit" Mode="In" />
+          <Parameter Name="Active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AllowedRows" Type="bigint" Mode="In" />
+          <Parameter Name="GUID" Type="bigint" Mode="In" />
+          <Parameter Name="CompanyID" Type="bigint" Mode="In" />
+          <Parameter Name="DefaultFormID" Type="bigint" Mode="In" />
+          <Parameter Name="DefaultScaleID" Type="bigint" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_SaveScale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GUID" Type="bigint" Mode="In" />
+          <Parameter Name="MAC" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CompanyID" Type="bigint" Mode="In" />
+          <Parameter Name="Status" Type="bit" Mode="In" />
+          <Parameter Name="Weight" Type="nvarchar" Mode="In" />
+          <Parameter Name="WeightDate" Type="datetime" Mode="In" />
+          <Parameter Name="Active" Type="bit" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ScalesTypeID" Type="bigint" Mode="In" />
+          <Parameter Name="IsDemo" Type="bit" Mode="In" />
+          <Parameter Name="UnitID" Type="bigint" Mode="In" />
+          <Parameter Name="OwnerID" Type="bigint" Mode="In" />
+        </Function>
+        <EntityContainer Name="WanagerDBModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WanagerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WanagerDBEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_GetCompanies" ReturnType="Collection(WanagerDBModel.sp_GetCompanies_Result)">
+            <Parameter Name="AllowedRows" Mode="In" Type="Int64" />
+            <Parameter Name="GUID" Mode="In" Type="Int64" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+            <Parameter Name="OwnerID" Mode="In" Type="Int64" />
+            <Parameter Name="ID" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="IsOwner" Mode="In" Type="Boolean" />
+            <Parameter Name="Active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetScales" ReturnType="Collection(WanagerDBModel.sp_GetScales_Result)">
+            <Parameter Name="AllowedRows" Mode="In" Type="Int64" />
+            <Parameter Name="GUID" Mode="In" Type="Int64" />
+            <Parameter Name="CompanyID" Mode="In" Type="Int64" />
+            <Parameter Name="OwnerID" Mode="In" Type="Int64" />
+            <Parameter Name="NAME" Mode="In" Type="String" />
+            <Parameter Name="MAC" Mode="In" Type="String" />
+            <Parameter Name="ScalesTypeID" Mode="In" Type="Int64" />
+            <Parameter Name="Status" Mode="In" Type="Boolean" />
+            <Parameter Name="Active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetUsers" ReturnType="Collection(WanagerDBModel.sp_GetUsers_Result)">
+            <Parameter Name="AllowedRows" Mode="In" Type="Int64" />
+            <Parameter Name="GUID" Mode="In" Type="Int64" />
+            <Parameter Name="CompanyID" Mode="In" Type="Int64" />
+            <Parameter Name="DefaultFormID" Mode="In" Type="Int64" />
+            <Parameter Name="DefaultScaleID" Mode="In" Type="Int64" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SaveScale" ReturnType="Collection(Int64)">
+            <Parameter Name="GUID" Mode="In" Type="Int64" />
+            <Parameter Name="MAC" Mode="In" Type="String" />
+            <Parameter Name="CompanyID" Mode="In" Type="Int64" />
+            <Parameter Name="Status" Mode="In" Type="Boolean" />
+            <Parameter Name="Weight" Mode="In" Type="String" />
+            <Parameter Name="WeightDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Active" Mode="In" Type="Boolean" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ScalesTypeID" Mode="In" Type="Int64" />
+            <Parameter Name="IsDemo" Mode="In" Type="Boolean" />
+            <Parameter Name="UnitID" Mode="In" Type="Int64" />
+            <Parameter Name="OwnerID" Mode="In" Type="Int64" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_GetCompanies_Result">
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="Int64" Name="GUID" Nullable="false" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="Boolean" Name="IsOwner" Nullable="false" />
+          <Property Type="String" Name="LogoPath" Nullable="true" />
+          <Property Type="String" Name="CertificateTitle" Nullable="true" />
+          <Property Type="Int32" Name="LanguageID" Nullable="true" />
+          <Property Type="Boolean" Name="IsSuper" Nullable="false" />
+          <Property Type="Int64" Name="OwnerID" Nullable="true" />
+          <Property Type="String" Name="DataFolder" Nullable="true" />
+          <Property Type="String" Name="ImagesFolder" Nullable="true" />
+          <Property Type="String" Name="SystemLogoPath" Nullable="true" />
+          <Property Type="Int64" Name="CompaniesLimit" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="true" />
+          <Property Type="Int32" Name="Minute" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetScales_Result">
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int64" Name="CompanyID" Nullable="true" />
+          <Property Type="Int64" Name="GUID" Nullable="false" />
+          <Property Type="String" Name="MAC" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="WeightDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="Int64" Name="ScalesTypeID" Nullable="true" />
+          <Property Type="Boolean" Name="IsDemo" Nullable="false" />
+          <Property Type="Int64" Name="UnitID" Nullable="true" />
+          <Property Type="Int64" Name="OwnerID" Nullable="true" />
+          <Property Type="String" Name="CompanyName" Nullable="true" />
+          <Property Type="String" Name="ScalesTypeName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="UnitName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUsers_Result">
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="CompanyID" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" />
+          <Property Type="Int64" Name="GUID" Nullable="false" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" />
+          <Property Type="String" Name="Password" Nullable="true" />
+          <Property Type="String" Name="Username" Nullable="true" />
+          <Property Type="Int64" Name="DefaultScaleID" Nullable="true" />
+          <Property Type="Int64" Name="DefaultFormID" Nullable="true" />
+          <Property Type="Int32" Name="LanguageID" Nullable="true" />
+          <Property Type="Int64" Name="PermissionID" Nullable="true" />
+          <Property Type="Int64" Name="DriverID" Nullable="true" />
+          <Property Type="String" Name="CompanyName" Nullable="true" />
+          <Property Type="Boolean" Name="CompanyIsOwner" Nullable="false" />
+          <Property Type="Boolean" Name="CompanyIsSuper" Nullable="false" />
+          <Property Type="String" Name="ScaleName" Nullable="true" />
+          <Property Type="String" Name="FormName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FormLink" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="PermissionName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="DriverName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WanagerDBModelStoreContainer" CdmEntityContainer="WanagerDBEntities">
+          <FunctionImportMapping FunctionImportName="sp_GetCompanies" FunctionName="WanagerDBModel.Store.sp_GetCompanies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WanagerDBModel.sp_GetCompanies_Result">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+                <ScalarProperty Name="LogoPath" ColumnName="LogoPath" />
+                <ScalarProperty Name="CertificateTitle" ColumnName="CertificateTitle" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="IsSuper" ColumnName="IsSuper" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="DataFolder" ColumnName="DataFolder" />
+                <ScalarProperty Name="ImagesFolder" ColumnName="ImagesFolder" />
+                <ScalarProperty Name="SystemLogoPath" ColumnName="SystemLogoPath" />
+                <ScalarProperty Name="CompaniesLimit" ColumnName="CompaniesLimit" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetScales" FunctionName="WanagerDBModel.Store.sp_GetScales">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WanagerDBModel.sp_GetScales_Result">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="MAC" ColumnName="MAC" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="WeightDate" ColumnName="WeightDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ScalesTypeID" ColumnName="ScalesTypeID" />
+                <ScalarProperty Name="IsDemo" ColumnName="IsDemo" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ScalesTypeName" ColumnName="ScalesTypeName" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUsers" FunctionName="WanagerDBModel.Store.sp_GetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WanagerDBModel.sp_GetUsers_Result">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="DefaultScaleID" ColumnName="DefaultScaleID" />
+                <ScalarProperty Name="DefaultFormID" ColumnName="DefaultFormID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyIsOwner" ColumnName="CompanyIsOwner" />
+                <ScalarProperty Name="CompanyIsSuper" ColumnName="CompanyIsSuper" />
+                <ScalarProperty Name="ScaleName" ColumnName="ScaleName" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="FormLink" ColumnName="FormLink" />
+                <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SaveScale" FunctionName="WanagerDBModel.Store.sp_SaveScale" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

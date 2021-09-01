@@ -1,0 +1,229 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-2  text-center">
+            <button id="btnNew" class="btn btn_modern">@ViewBag.Dictionary.New</button>
+        </div>
+        <div class="col-10 royal_blue rounded">
+            <div class="card-header text-center" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-white" type="button" aria-expanded="true" aria-controls="collapseOne">
+                        @ViewBag.Dictionary.Filters
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_first_name">@ViewBag.Dictionary.FirstName</label>
+                            <input id="f_first_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_last_name">@ViewBag.Dictionary.LastName</label>
+                            <input id="f_last_name" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_id">@ViewBag.Dictionary.ID</label>
+                            <input id="f_id" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_username">@ViewBag.Dictionary.Username</label>
+                            <input id="f_username" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_password">@ViewBag.Dictionary.Password</label>
+                            <input id="f_password" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group  text-center text-white">
+                            <label for="f_email">@ViewBag.Dictionary.Email</label>
+                            <input id="f_email" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_scales">@ViewBag.Dictionary.Scales</label>
+                            <select id="f_scales"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_forms">@ViewBag.Dictionary.Forms</label>
+                            <select id="f_forms"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" dir="rtl">
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_from_birth_date">@ViewBag.Dictionary.FromBirthDate</label>
+                            <input id="f_from_birth_date" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <label for="f_to_birth_date">@ViewBag.Dictionary.ToBirthDate</label>
+                            <input id="f_to_birth_date" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <div class="form-group text-center text-white">
+                            <input type='checkbox' class='ios8-switch' id='f_active' checked>
+                            <label for='f_active'>@ViewBag.Dictionary.ActiveOnly</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+    
+    <div class="table-responsive" dir="rtl">
+        <table id="items" class="display sh_table" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="th-table text-white">@ViewBag.Dictionary.FirstName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.LastName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.BirthDate</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Username</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Password</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Email</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.PermissionName</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Scales</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Forms</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.Active</th>
+                    <th class="th-table text-white">@ViewBag.Dictionary.ID</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+
+    <div class="modal fade text-white" id="current" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">@ViewBag.Dictionary.UserEdit</h5>
+                </div>
+                <div class="modal-body" id="current">
+                    <div class="row" dir="rtl">
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center">
+                                <label for="first_name">@ViewBag.Dictionary.FirstName</label>
+                                <input id="first_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group  text-center">
+                                <label for="last_name">@ViewBag.Dictionary.LastName</label>
+                                <input id="last_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group  text-center">
+                                <label for="id">@ViewBag.Dictionary.ID</label>
+                                <input id="id" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" dir="rtl">
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center">
+                                <label for="username">@ViewBag.Dictionary.Username</label>
+                                <input id="username" type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center">
+                                <label for="password">@ViewBag.Dictionary.Password</label>
+                                <input id="password" type="password" />
+                                <img id="eye" src="~/Images/eye.png" style="width:10%;height:15px;" />
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group  text-center">
+                                <label for="email">@ViewBag.Dictionary.Email</label>
+                                <input id="email" type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="scales">@ViewBag.Dictionary.Scales</label>
+                                <select id="scales"></select>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="permissions">@ViewBag.Dictionary.Permissions</label>
+                                <select id="permissions"></select>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="forms">@ViewBag.Dictionary.Forms</label>
+                                <select id="forms"></select>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="drivers">@ViewBag.Dictionary.DriverName</label>
+                                <select id="drivers"></select>
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <label for="language">@ViewBag.Dictionary.Lang</label>
+                                <select id="language"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" dir="rtl">
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center">
+                                <label for="birth_date">@ViewBag.Dictionary.BirthDate</label>
+                                <input id="birth_date" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-3 offset-1">
+                            <div class="form-group text-center text-white">
+                                <input type='checkbox' class='ios8-switch' id='active'>
+                                <label for='active'>@ViewBag.Dictionary.Active</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-2 text-center">
+                            <button type="button" class="btn btn_modern" data-dismiss="modal">@ViewBag.Dictionary.Cancel</button>
+                        </div>
+                        <div class="col-2 text-center">
+                            <button type="button" id="btnSave" class="btn btn_modern">@ViewBag.Dictionary.Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/datatables/datatables.js")
+    @Scripts.Render("~/Scripts/ViewScripts/Users/Index.js")
+
+

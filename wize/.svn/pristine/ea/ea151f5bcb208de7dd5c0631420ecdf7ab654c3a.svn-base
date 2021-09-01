@@ -1,0 +1,21 @@
+
+import javax.swing.JFrame;
+
+import ScaleReaders.ScaleHeaders;
+import Wize.Configuration;
+import Wize.Engine;
+import Wize.WizeModules;
+
+public class Wize {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		if(!Engine.loadConfig())
+			return;
+		
+		Engine eng = Engine.getInstance(WizeModules.valueOf(Configuration.Module));
+		
+		eng.Start();
+	}
+
+}

@@ -1,0 +1,47 @@
+<!--<Web>http://fansrating.com/Scales/Client</Web>-->
+<!--<Web>https://mishkalim.co.il/Scales/Client</Web>-->
+<!-- <Web>http://localhost:50587/Scales/Client</Web> -->
+<!-- <Web>http://192.168.2.226:50587/Scales/Client</Web> -->
+
+<Configuration>  
+	<Module>Caesarea</Module>
+	<!-- <Module>Weight</Module> -->
+	<ResetTime>15</ResetTime>
+	<OfflineInterval>1</OfflineInterval>
+	<Web>http://fansrating.com/Scales/Client</Web>
+
+	<DisplayProperties>
+		<Display>true</Display>
+		<IsShowUserInput>true</IsShowUserInput>
+	</DisplayProperties>
+
+	<Scales>
+		<Scale>J6478</Scale>
+		<!-- <Scale>Test</Scale> -->
+		<Com>COM5</Com>
+	</Scales>
+	
+	<Tag>
+		<TagCom>COM5</TagCom>
+		<TagModule>Keys</TagModule>
+	</Tag>
+	
+	<Siemens>
+		<SiemensIP>192.168.2.124</SiemensIP> 
+		<SiemensPort>2000</SiemensPort>
+	</Siemens> 
+
+	<LPR>
+		<LPRIP>192.168.2.100</LPRIP>
+		<LPRPort>7600</LPRPort>
+	</LPR>
+	
+	<GPIOS>
+		<GPIO>
+			<IO>IO_02</IO>
+			<State>High</State>
+			<Transput>Output</Transput>	 
+		</GPIO>	
+	</GPIOS>
+</Configuration>
+

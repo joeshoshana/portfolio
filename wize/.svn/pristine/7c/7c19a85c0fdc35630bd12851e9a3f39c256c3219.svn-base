@@ -1,0 +1,196 @@
+package Siemens;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.charset.Charset;
+
+import LogHandler.LogListener;
+import LogHandler.LogType;
+
+public class Siemens implements Closeable, Runnable {
+	protected Socket m_sender = null;
+	protected ServerSocket m_receiver = null;
+	protected SiemensArgs m_args = null;
+	public  LogListener OnLog = null;
+	public  Boolean IsRunning = false;
+	public SendListener OnSend = null;
+	public ReceiveListener OnReceive = null;
+	
+	public Siemens(SiemensArgs args)
+	{
+		m_args = args;
+	}
+	
+	public boolean Connect()
+	{
+		try {
+       		if(m_args == null)
+       			throw new Exception("No Arguments Was Initialized");
+       		
+       		Disconnect();
+       		
+       		ValidateArgs(m_args);
+       		
+       		m_sender = new Socket(m_args.IP,m_args.Port);
+       		m_receiver = new ServerSocket(m_args.Port - 1);
+    		
+    		return true;
+    	}
+    	catch (Exception ex) {
+    		Log(LogType.Error,ex.getMessage());
+    		return false;
+    	}
+	}
+	
+	public void ValidateArgs(SiemensArgs args) throws Exception
+	{
+		if ( args.IP == null || args.IP.trim().length() == 0)
+        {
+            throw new Exception("Missing IP");
+        }
+        else
+        {
+            if (!IsIPValid(args.IP))
+            {
+            	throw new Exception("Invalid IP");
+            }
+        }
+        if (args.Port == 0)
+        {
+        	throw new Exception("Missing Port");
+        }
+	}
+	
+	private boolean IsIPValid(String ipString)
+    {
+        try
+        {
+            if (ipString == null || ipString.contains(" "))
+            {
+                return false;
+            }
+
+            String[] splitValues = ipString.split("\\.");
+            if (splitValues.length != 4)
+            {
+                return false;
+            }
+
+            for(int i =0; i<splitValues.length; i++ )
+            {
+	           	try
+	           	{
+	           		int val = Integer.parseInt(splitValues[i]);
+	           		if(val < 0 || val > 255)
+	           			return false;
+	           	}
+	           	catch(Exception ex)
+	           	{
+	           		return false;
+	           	}            		
+            }
+            return true;            
+        }
+        catch (Exception ex)
+        {
+            Log(LogType.Error, ex.getMessage());
+            return false;
+        }   
+    }
+	
+	public void Disconnect()
+	{
+		try {
+			if (m_sender != null)
+	         {
+				m_sender.close();
+	         }
+			m_sender = null;
+			
+			if (m_receiver != null)
+	         {
+				m_receiver.close();
+	         }
+			m_receiver = null;
+		}
+		catch(Exception ex )
+		{
+			Log(LogType.Error,ex.getMessage());
+		}	 
+	}
+	
+	public void Process() {
+		Thread r = new Thread(() -> {
+    		while(IsRunning)
+    		{
+    			try {
+    				byte[] buffer = new byte[1024];
+    	            int len = -1;
+					Socket client =  m_receiver.accept();
+					InputStream in = client.getInputStream();
+					if(in.available() > 0)
+                	{
+						Thread.sleep(160);
+	            		len = in.read(buffer);
+	            		String data = new String(buffer,0,len);
+	            		Receive(data);
+                	}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+    		}
+    	});
+    	r.start();
+	}
+	
+	public void Send(SiemensCommands command) {
+		try {
+			String name = command.name(); 
+			OutputStream out = m_sender.getOutputStream();
+			byte[] a = new byte[1];
+			a[0] = (byte) name.length();
+			out.write(a, 0, 1);
+			out.write(a, 0, 1);
+			out.write(name.getBytes(Charset.forName("UTF-8")),0,name.length());
+			out.close();
+		} catch (IOException e) {
+			Log(LogType.Error,e.getMessage());
+		}
+	}
+	
+	@Override
+	public void run() {
+		Process();       	
+	}
+	
+	
+
+	@Override
+	public void close() throws IOException {
+		Disconnect();	
+	}
+	
+	
+	protected  void Log(LogType logType, String msg)
+	{
+		if(OnLog != null)
+			OnLog.Log(logType,msg);
+	}
+	
+	protected void Receive(String data)
+	{
+		if(OnReceive != null)
+			OnReceive.Receive(data);
+	}
+	
+	protected void Send(String data)
+	{
+		if(OnSend != null)
+			OnSend.Send(data);	
+	}
+}

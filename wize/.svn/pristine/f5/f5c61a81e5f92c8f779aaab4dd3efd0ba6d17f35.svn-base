@@ -1,0 +1,5 @@
+<Configuration>  
+  <Weight>11</Weight>
+ <Com>3</Com>
+ <Web>http://localhost:50587/Scales/Client</Web>
+</Configuration>

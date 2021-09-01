@@ -1,0 +1,7 @@
+﻿<Configuration>
+	<Weight>Test</Weight>
+	<!--<Web>http://localhost:50587/Scales/Client</Web>-->
+	<Web>https://mishkalim.co.il/Scales/Client</Web>
+	<COM>COM2</COM>
+	<IsDemo>true</IsDemo>
+</Configuration>
