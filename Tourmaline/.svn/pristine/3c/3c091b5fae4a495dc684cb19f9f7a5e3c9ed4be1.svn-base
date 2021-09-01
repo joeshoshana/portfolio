@@ -1,0 +1,6 @@
+<Configuration>
+  <Port>2101</Port>
+  <WeightID>8</WeightID>
+  <COM>COM2</COM>
+  <MaxTries>10</MaxTries>
+</Configuration>

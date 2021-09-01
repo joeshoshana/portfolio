@@ -1,0 +1,535 @@
+﻿<Window x:Class="TourmalineUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="800" Width="1000"  WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" Closing="Window_Closing" Icon="Resources/ShkilaT.ico">
+    <Window.Resources>
+        <FontFamily x:Key="Analog">/Fonts/#Ticking Timebomb BB</FontFamily>       
+    </Window.Resources>
+    <Grid>
+        <Border Background="#66ccff" CornerRadius="30" Opacity="0.8"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions> 
+            <Grid Grid.Row="0">
+                <TextBlock Text="{Binding Title, FallbackValue=Tourmaline 2.0}" Foreground="White" FontFamily="David" FontSize="25" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Source="pack://siteoforigin:,,,/Resources/ShkilaT.ico" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,2" MouseLeftButtonDown="imgLink_Clicked">
+                    <Image.RenderTransform>
+                        <ScaleTransform  x:Name="TransScale" />
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Image.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="ScaleX"
+                                        Storyboard.TargetName="TransScale"
+                                        To="-1" 
+                                        Duration="0:0:1"  
+                                        AutoReverse="True"
+                                        RepeatBehavior="Forever">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                <WrapPanel>
+                    <Button Click="btnInstall_Clicked" Margin="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Name="BackgroundBorder" Background="#4286f4" Width="200" Height="150" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="Resources/install.png" Margin="5"/>
+                                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Install,FallbackValue=התקן שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Installer,FallbackValue=התקנה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect Color="Black" Opacity="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>       
+                    <Button Click="btnUninstall_Clicked" Margin="20">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                                <Border Name="BackgroundBorder" Background="#f46542" Width="200" Height="150">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="20"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Grid.Column="0" Source="Resources/uninstall.png" Margin="5"/>
+                                                <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Uninstall,FallbackValue=הסר שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="50"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Installer,FallbackValue=התקנה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="Black" Opacity="0.5" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect 
+                                                        Color="Black" 
+                                                        Direction="320" 
+                                                        ShadowDepth="0" 
+                                                        BlurRadius="0" 
+                                                        Opacity="0" 
+                                                        />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+                    <Button Click="btnStart_Clicked" Margin="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Name="BackgroundBorder" Background="#f24141" Width="200" Height="150">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0" Source="Resources/start.png" Margin="5"/>
+                                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Start,FallbackValue=התחל שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Service,FallbackValue=שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect Color="Black" Opacity="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                            <Setter.Value>
+                                                <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+                    <Button Click="btnStop_Clicked" Margin="20">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Name="BackgroundBorder" Background="#b740f1" Width="200" Height="150">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="20"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="80"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Image Grid.Column="0" Source="Resources/stop.png" Margin="5"/>
+                                                        <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Stop,FallbackValue=הפסק שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="50"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Service,FallbackValue=שירות}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect Color="Black" Opacity="0.5" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </WrapPanel>
+                <Button Click="btnTest_Clicked" Margin="5">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Name="BackgroundBorder" Background="#f2b72e" CornerRadius="100" Width="200" Height="200">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Test,FallbackValue=בדיקה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="48"/>
+                                                    <Image Source="pack://siteoforigin:,,,/Resources/ShkilaT.ico" Width="70" Height="70" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,2">
+                                                        <Image.RenderTransform>
+                                                            <ScaleTransform  x:Name="TransScale" />
+                                                        </Image.RenderTransform>
+                                                        <Image.Triggers>
+                                                            <EventTrigger RoutedEvent="Image.Loaded">
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetProperty="ScaleX"
+                                        Storyboard.TargetName="TransScale"
+                                        To="-1" 
+                                        Duration="0:0:1"  
+                                        AutoReverse="True"
+                                        RepeatBehavior="Forever">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseInOut" />
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger>
+                                                        </Image.Triggers>
+                                                    </Image>
+                                                </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="Black" Opacity="0.5" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                </StackPanel>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.6*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="5">
+                            <TextBlock Foreground="White"  Text="{Binding Dictionary.LicenseStatus, FallbackValue=סטטוס רשיון}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <TextBlock Text="{Binding License}" Foreground="{Binding LicenseColor, Mode=TwoWay, FallbackValue=Red}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <Image Source="Resources/key.png" HorizontalAlignment="Center" Width="70" Height="70" VerticalAlignment="Center" MouseLeftButtonDown="btnUpdateLicense_Clicked"/>                            
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="5">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.ServiceStatus, FallbackValue=סטטוס שירות}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <TextBlock Text="{Binding Service}" Foreground="{Binding ServiceColor, FallbackValue=Red}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <WrapPanel Grid.Row="1">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.Langua, FallbackValue=שפה}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <ComboBox ItemsSource="{Binding Languages}"  SelectedValue="{Binding Language, Mode=TwoWay}" Height="30" Width="100" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.Serial, FallbackValue=יציאה סיריאלית}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <ComboBox ItemsSource="{Binding Coms}" SelectedItem="{Binding SelectedCom,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.Manufacturer, FallbackValue=יצרן}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <ComboBox ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5" SelectionChanged="cmbManufacturer_Changed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.Model, FallbackValue=דגם}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>
+                            <ComboBox ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Dictionary.Port, FallbackValue=פורט}" FontFamily="David" TextAlignment="Center" FontSize="25" Margin="5"/>                            
+                            <TextBox Text="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5" PreviewTextInput="txtPort_Preview"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Button Click="btnExit_Clicked" Margin="20">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Name="BackgroundBorder" Background="#ff99cc" Width="200" Height="150" >
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="20"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid Grid.Row="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="80"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Image Grid.Column="0" Source="Resources/exit.png" Margin="5"/>
+                                                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Exit,FallbackValue=יציאה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="50"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Software,FallbackValue=תוכנה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect Color="Black" Opacity="0.5" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Click="btnSave_Clicked" Margin="20">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Name="BackgroundBorder" Background="#ffaa80" Width="200" Height="150" >
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="20"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid Grid.Row="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="80"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Image Grid.Column="0" Source="Resources/save.png" Margin="5"/>
+                                                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Save,FallbackValue=שמירה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="25"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="50"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock Foreground="White" Text="{Binding Dictionary.Software,FallbackValue=תוכנה}" TextAlignment="Center" TextWrapping="Wrap" FontFamily="David" FontSize="20"/>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect Color="Black" Opacity="0.5" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="BackgroundBorder" Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect 
+                                                    Color="Black" 
+                                                    Direction="320" 
+                                                    ShadowDepth="0" 
+                                                    BlurRadius="0" 
+                                                    Opacity="0" 
+                                                    />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                    <Border Grid.Row="3" CornerRadius="30" BorderBrush="White" BorderThickness="5">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                            <TextBlock Text="{Binding Weight,FallbackValue=-123}" Foreground="White" FontSize="90" FontFamily="{StaticResource Analog}" TextAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            <DockPanel  VerticalAlignment="Stretch"  Grid.Row="2" Margin="20" >
+                <TextBox Text="{Binding Log}" Width="auto" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"  VerticalScrollBarVisibility="Auto"  MinHeight="100" TextChanged="LogChanged"/>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>

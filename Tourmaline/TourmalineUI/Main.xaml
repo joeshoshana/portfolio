@@ -1,0 +1,65 @@
+﻿<Window x:Class="TourmalineUI.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Button Content="התקן שירות" Margin="5" Click="btnInstall_Clicked"/>
+                <Button Content="הסר שירות" Margin="5"  Click="btnUninstall_Clicked"/>
+                <Button Content="בדוק" Margin="5" Click="btnTest_Clicked"/>
+                <TextBlock Text="מצב שירות" TextAlignment="Center" Margin="5"/>
+                <TextBlock Text="{Binding Status}" TextAlignment="Center" Margin="5"/>
+            </StackPanel>
+            <TextBlock Grid.Column="1" Text="{Binding Weight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <Button Content="התחל שירות" Margin="5" Click="btnStart_Clicked"/>
+                <Button Content="הפסק שירות" Margin="5" Click="btnStop_Clicked"/>
+                <TextBlock Text="מצב רשיון" TextAlignment="Center" Margin="5"/>
+                <TextBlock Text="{Binding License}" TextAlignment="Center" Margin="5"/>
+                <Button Content="עדכן רשיון" Margin="5" Click="btnUpdateLicense_Clicked"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="יציאה" Margin="5" TextAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Coms}" SelectedItem="{Binding SelectedCom,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="יצרן" Margin="5" TextAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Manufacturers}" SelectedItem="{Binding SelectedManufacturer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5" SelectionChanged="cmbManufacturer_Changed"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="דגם" Margin="5" TextAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" Margin="5"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="פורט" Margin="5" TextAlignment="Center"/>
+                <TextBox Text="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5" PreviewTextInput="txtPort_Preview"/>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <DockPanel  VerticalAlignment="Stretch"  Grid.Row="0" >
+                <TextBox Text="{Binding Log}" Width="auto" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"  VerticalScrollBarVisibility="Auto"  MinHeight="100" Margin="5" TextChanged="LogChanged"/>
+            </DockPanel>
+            <Grid Grid.Row="1">
+                <Button Content="יציאה" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="50,0" Click="btnExit_Clicked"/>
+                <Button Content="שמירה" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100" Margin="50,0" Click="btnSave_Clicked"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
